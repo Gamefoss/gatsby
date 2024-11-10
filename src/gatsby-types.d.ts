@@ -743,7 +743,6 @@ type ImageFit =
   | 'outside';
 
 type ImageFormat =
-  | ''
   | 'avif'
   | 'jpg'
   | ''
