@@ -1,6 +1,6 @@
 {
   "name": "gamefoss",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "gamefoss",
   "keywords": [
@@ -13,7 +13,10 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "release": "standard-version"
+    "prerelease": "npm run build",
+    "release": "standard-version",
+    "postrelease": "node scripts/zipper.js",
+    "zipname": "node scripts/zipname.js"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.0",
@@ -32,13 +35,16 @@
     "postcss": "^8.4.47",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
+    "archiver": "^7.0.1",
+    "fs-extra": "^11.2.0",
+    "micromatch": "^4.0.8",
+    "standard-version": "^9.5.0",
     "typescript": "^5.3.3"
   }
 }
