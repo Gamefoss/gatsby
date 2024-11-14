@@ -1,4 +1,5 @@
 import type { GatsbyConfig } from "gatsby";
+import path from "node:path";
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -35,7 +36,14 @@ const config: GatsbyConfig = {
       feedURL: `https://anchor.fm/s/4c499e08/podcast/rss`,
       id: 'guid',
     },
-  }]
+  },
+  {
+    resolve: `gatsby-plugin-root-import`,
+    options: {
+      '@styles': path.join(__dirname, "src", "styles"),
+    }
+  }
+  ]
 };
 
 export default config;
