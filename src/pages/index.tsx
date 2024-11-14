@@ -1,18 +1,18 @@
-import * as React from "react"
+import React, {FunctionComponent} from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { graphql } from "gatsby";
 
 import "@styles/pages/index.css"
 
-const IndexPage: React.FC<PageProps> = ({data}) => {
+const IndexPage: FunctionComponent<PageProps> = ({data}) => {
   return (
     <main>
       <h1 className={"test"}>Testing Gatsby!</h1>
       <ul>
-        {data.allPodcastRssFeedEpisode.nodes.map((node) => {
-          const { item } = node;
+        {data.allPodcastRssFeedEpisode.nodes.map(({item}) => {
+          const {link, title} = item;
           return (
-            <li key={item.link}>{item.title}</li>
+            <li key={link}>{title}</li>
             )
           })}
       </ul>
