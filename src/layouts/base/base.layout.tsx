@@ -11,7 +11,16 @@ import {Header} from "@components";
 const BaseLayout: FunctionComponent<{children: ReactNode}> = ({children}) => {
 	return (
 		<>
-		<Header />
+		<Header menu={[
+			{
+				title: "Home",
+				link: "/"
+			},
+			{
+				title: "Test",
+				link: "/test"
+			}
+		]} />
 		<main data-testid="main-content">
 			{children}
 		</main>

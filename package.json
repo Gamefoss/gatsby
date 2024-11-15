@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
@@ -20,6 +21,7 @@
     "zipname": "node scripts/zipname.js"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@mdx-js/react": "^3.1.0",
     "autoprefixer": "^10.4.20",
     "gatsby": "^5.14.0",

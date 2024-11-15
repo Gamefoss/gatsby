@@ -28,6 +28,12 @@ const config = {
         "<rootDir>/loadershim.ts",
     ],
     setupFilesAfterEnv: ["<rootDir>/setup-test-env.ts"],
+    coveragePathIgnorePatterns: [
+        "/node_modules/",
+        "/public/",
+        "/\\.cache/",
+        "index.ts$"
+    ]
 };
 
 export default config;

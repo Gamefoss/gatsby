@@ -6,6 +6,7 @@ header {
         fixed
         w-full
         h-10;
+
     nav {
         @apply
             flex
@@ -13,36 +14,60 @@ header {
             items-center
             max-w-screen-2xl
             mx-auto;
+
+        button {
+            @apply
+            w-6
+        }
     }
     ul {
         @apply
             absolute
+            md:relative
             items-center
-            w-full
+            w-3/4
+            md:w-full
             top-10
             h-dvh
+            md:h-auto
             bg-amber-300
+            md:bg-transparent
             -translate-x-full
             left-0
             py-2
-            transition
-            transform
-            ease-in-out
-            delay-500
-            md:transition-none
-            md:transform-none
-            md:bg-transparent
-            md:translate-x-0
             md:py-0
             md:px-4
-            md:relative
+            transition
+            md:transition-none
+            transform
+            md:transform-none
+            md:translate-x-0
+            ease-in-out
+            delay-200
             md:flex
-            md:top-0
-            md:h-auto;
+            md:top-0;
+
         &.menu__opened {
             @apply
                 translate-x-0;
+            &:after {
+                @apply
+                    w-1/3;
+            }
         }
+        &:after {
+            content: "";
+            @apply
+                block
+                absolute
+                top-0
+                left-full
+                w-0
+                h-full
+                bg-black
+                opacity-50;
+        }
+
         a {
             @apply
                 text-white
