@@ -1,5 +1,22 @@
 import type { GatsbyConfig } from "gatsby";
-import path from "node:path";
+import {join} from "node:path";
+
+import {compilerOptions} from './tsconfig.json'
+
+const {paths} = compilerOptions;
+
+/**
+ * This will take the paths object from the tsconfig.json file and parse it into a format that
+ * the gatsby-plugin-root-import plugin can use.
+ */
+const parsedPaths: Record<string, string> = Object.entries(paths).reduce((acc, [key, [value]]) => {
+  const path = key.replace('/*', '');
+  const directory = value.replace('/*', '');
+  return {
+  ...acc,
+    [path]: join(__dirname, ...directory.split('/'))
+  }
+}, {});
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -39,9 +56,7 @@ const config: GatsbyConfig = {
   },
   {
     resolve: `gatsby-plugin-root-import`,
-    options: {
-      '@styles': path.join(__dirname, "src", "styles"),
-    }
+    options: parsedPaths
   }
   ]
 };

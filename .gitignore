@@ -6,3 +6,4 @@ public/
 .DS_Store
 *.zip
 /src/gatsby-types.d.ts
+coverage/

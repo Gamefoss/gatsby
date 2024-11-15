@@ -5,6 +5,10 @@ import {mock} from "jest-mock-extended";
 import {PageProps} from "gatsby";
 import {PodcastRssFeedEpisodeData} from "gatsby-source-podcast-rss-feed";
 
+jest.mock('@layouts', () => ({
+	BaseLayout: ({children}: {children: React.ReactNode}) => <div>{children}</div>
+}))
+
 test("renders IndexPage with podcast episodes", () => {
 	const mockedData: PodcastRssFeedEpisodeData = {
 		allPodcastRssFeedEpisode: {
@@ -35,7 +39,12 @@ test("renders IndexPage with podcast episodes", () => {
 		},
 	};
 	const props = mock<PageProps<PodcastRssFeedEpisodeData>>();
-	const { getByText } = render(<IndexPage {...props} data={mockedData} />);
+	const { getByText } = render(<IndexPage
+		{...props}
+		data={mockedData}
+		children={undefined}
+	/>
+	);
 	
 	expect(getByText("Episode 1")).toBeInTheDocument();
 	expect(getByText("Episode 2")).toBeInTheDocument();

@@ -6,7 +6,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@images/*": ["src/images/*"],
+      "@components": ["src/components/index"],
+      "@layouts": ["src/layouts/index"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

@@ -4,27 +4,28 @@ import {graphql} from "gatsby";
 
 import type {PodcastRssFeedEpisodeData} from "gatsby-source-podcast-rss-feed";
 
+import {BaseLayout} from "@layouts";
+
 import "@styles/pages/index.css"
 
 const IndexPage: FunctionComponent<PageProps<PodcastRssFeedEpisodeData>> = ({data}) => {
   return (
-    <main>
-      <h1 className={"test"}>Testing Gatsby!</h1>
+    <BaseLayout>
       <ul>
         {data.allPodcastRssFeedEpisode?.nodes?.map((node) => {
           const {link, title} = node?.item || {};
           return (
             <li key={link}>{title}</li>
-            )
-          })}
+          )
+        })}
       </ul>
-    </main>
+    </BaseLayout>
   )
 }
 
 export default IndexPage
 
-export const Head: HeadFC = () => <title>Home Page</title>
+export const Head: HeadFC = () => <title>Home Page | Gamefoss</title>
 
 export const query = graphql`
   query PodcastQuery {
