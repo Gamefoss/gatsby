@@ -1,0 +1,6 @@
+main {
+    @apply
+        pt-10
+        max-w-screen-2xl
+        mx-auto;
+}

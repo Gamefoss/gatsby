@@ -1,0 +1,67 @@
+header {
+    @apply
+        bg-purple-800
+        text-white
+        p-2
+        fixed
+        w-full
+        h-10;
+    nav {
+        @apply
+            flex
+            justify-between
+            items-center
+            max-w-screen-2xl
+            mx-auto;
+    }
+    ul {
+        @apply
+            absolute
+            items-center
+            w-full
+            top-10
+            h-dvh
+            bg-amber-300
+            -translate-x-full
+            left-0
+            py-2
+            transition
+            transform
+            ease-in-out
+            delay-500
+            md:transition-none
+            md:transform-none
+            md:bg-transparent
+            md:translate-x-0
+            md:py-0
+            md:px-4
+            md:relative
+            md:flex
+            md:top-0
+            md:h-auto;
+        &.menu__opened {
+            @apply
+                translate-x-0;
+        }
+        a {
+            @apply
+                text-white
+                hover:text-purple-300
+                px-2
+                py-1;
+        }
+    }
+
+    #main-logo {
+        img {
+            @apply
+            block
+            mx-auto;
+        }
+    }
+
+    #menu-toggle {
+        @apply
+            md:hidden;
+    }
+}
