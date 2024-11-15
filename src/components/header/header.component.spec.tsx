@@ -1,7 +1,7 @@
 import React, {ReactNode} from "react";
-import { render, fireEvent } from "@testing-library/react";
+import {render, fireEvent, waitFor} from "@testing-library/react";
 import {Header} from "@components";
-import { useStaticQuery } from "gatsby";
+import {ANIMATION_DELAY} from "@constants";
 
 jest.mock("gatsby", () => ({
 	...jest.requireActual("gatsby"),
@@ -52,15 +52,17 @@ describe("Header", () => {
 			expect(queryByText("Close")).not.toBeInTheDocument();
 		});
 		
-		it("toggles menu on button click", () => {
+		it("toggles menu on button click", async () => {
 			const { getByTestId, getByText } = render(<Header />);
 			const menuButton = getByTestId("header-menu-toggle");
 			
 			fireEvent.click(menuButton);
 			expect(getByText("Close")).toBeInTheDocument();
-			
 			fireEvent.click(menuButton);
-			expect(getByText("Menu")).toBeInTheDocument();
+			await waitFor(() => {
+				expect(getByText("Menu")).toBeInTheDocument();
+			}, {timeout: ANIMATION_DELAY + 100});
+			
 		});
 	});
 });

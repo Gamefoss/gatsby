@@ -32,7 +32,8 @@ const config = {
         "/node_modules/",
         "/public/",
         "/\\.cache/",
-        "index.ts$"
+        "index.ts$",
+        "\\.types\\.ts$"
     ]
 };
 

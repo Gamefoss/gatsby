@@ -1,79 +1,60 @@
 header {
     @apply
-        bg-purple-800
-        text-white
-        p-2
-        fixed
-        w-full
-        h-10;
+    bg-purple-800
+    text-white
+    p-2
+    fixed
+    w-full
+    h-10;
 
     nav {
         @apply
-            flex
-            justify-between
-            items-center
-            max-w-screen-2xl
-            mx-auto;
+        flex
+        justify-between
+        items-center
+        max-w-screen-2xl
+        mx-auto;
 
         button {
             @apply
-            w-6
+            w-6;
         }
     }
+
     ul {
         @apply
-            absolute
-            md:relative
-            items-center
-            w-3/4
-            md:w-full
-            top-10
-            h-dvh
-            md:h-auto
-            bg-amber-300
-            md:bg-transparent
-            -translate-x-full
-            left-0
-            py-2
-            md:py-0
-            md:px-4
-            transition
-            md:transition-none
-            transform
-            md:transform-none
-            md:translate-x-0
-            ease-in-out
-            delay-200
-            md:flex
-            md:top-0;
-
-        &.menu__opened {
-            @apply
-                translate-x-0;
-            &:after {
-                @apply
-                    w-1/3;
-            }
-        }
-        &:after {
-            content: "";
-            @apply
-                block
-                absolute
-                top-0
-                left-full
-                w-0
-                h-full
-                bg-black
-                opacity-50;
-        }
+        absolute
+        md:relative
+        items-center
+        w-3/4
+        md:w-full
+        top-10
+        h-dvh
+        md:h-auto
+        bg-indigo-200
+        md:bg-transparent
+        -translate-x-full
+        left-0
+        py-2
+        md:py-0
+        md:px-4
+        transition
+        md:transition-none
+        transform
+        md:transform-none
+        md:translate-x-0
+        ease-in-out
+        delay-200
+        md:flex
+        md:top-0;
 
         a {
             @apply
-                text-white
-                hover:text-purple-300
-                px-2
-                py-1;
+            text-black
+            md:text-white
+            hover:text-purple-300
+            px-2
+            py-1;
         }
     }
 
@@ -87,6 +68,40 @@ header {
 
     #menu-toggle {
         @apply
-            md:hidden;
+        md:hidden;
+    }
+
+    .overlay {
+        @apply
+        invisible
+        fixed
+        top-10
+        left-0
+        w-full
+        h-dvh
+        bg-black
+        opacity-0
+        transition-opacity
+        ease-in-out
+        delay-200;
+    }
+
+    &.menu__open {
+        .overlay {
+            @apply
+            visible;
+        }
+    }
+
+    &.menu__opened {
+        ul {
+            @apply
+            translate-x-0;
+        }
+
+        .overlay {
+            @apply
+            opacity-75;
+        }
     }
 }

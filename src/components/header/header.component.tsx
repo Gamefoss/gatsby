@@ -1,6 +1,7 @@
 import {Link} from "gatsby";
 
 import React, {useState} from "react";
+import {clsx} from "clsx";
 
 import {
 	Bars3Icon as HamburgerIcon,
@@ -13,24 +14,47 @@ import {HeaderProps} from "./header.component.types";
 
 import logo from "@images/horizontal-logo.svg";
 import "./header.component.css";
+import {ANIMATION_DELAY} from "@constants";
 
 /**
  * HeaderComponent component
  * @description The header component for the site
  */
 const Header = ({menu = []}: HeaderProps) => {
+	
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [menuOpened, setMenuOpened] = useState(false);
+	
+	const toggleMenu = () => {
+		if (menuOpen) {
+			setMenuOpened(false);
+			setTimeout(() => {
+				setMenuOpen(false);
+			}, ANIMATION_DELAY);
+		} else {
+			setMenuOpen(true);
+			setMenuOpened(true);
+		}
+	};
+	
 	return (
-		<header data-testid="header-component">
+		<header
+			data-testid="header-component"
+			className={clsx({
+				'menu__open': menuOpen,
+				'menu__opened': menuOpened
+			})}
+		>
+			<div className="overlay"></div>
 			<nav>
 				<button
 					id="menu-toggle"
 					data-testid="header-menu-toggle"
 					aria-label="Toggle menu"
-					onClick={() => setMenuOpen(!menuOpen)}
+					onClick={toggleMenu}
 				>
 					
-					{menuOpen ? <CloseIcon/> : <HamburgerIcon />}
+					{menuOpen ? <CloseIcon/> : <HamburgerIcon/>}
 				</button>
 				<h1 id="main-logo">
 					<Link to="/">
@@ -39,7 +63,6 @@ const Header = ({menu = []}: HeaderProps) => {
 				</h1>
 				<ul
 					data-testid="header-menu"
-					className={menuOpen ? "menu__opened" : ""}
 				>
 					{
 						menu?.map(({link, title}, index) => (
@@ -54,7 +77,7 @@ const Header = ({menu = []}: HeaderProps) => {
 					data-testid="header-search-toggle"
 					aria-label="Toggle search"
 				>
-					<SearchIcon />
+					<SearchIcon/>
 				</button>
 			</nav>
 		</header>

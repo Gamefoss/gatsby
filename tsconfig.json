@@ -9,7 +9,8 @@
       "@styles/*": ["src/styles/*"],
       "@images/*": ["src/images/*"],
       "@components": ["src/components/index"],
-      "@layouts": ["src/layouts/index"]
+      "@layouts": ["src/layouts/index"],
+      "@constants": ["src/constants"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
