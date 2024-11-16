@@ -1,0 +1,11 @@
+footer {
+    .disclaimer {
+        @apply
+            bg-gray-950
+            text-white
+            text-xs
+            py-2
+            text-right
+        ;
+    }
+}

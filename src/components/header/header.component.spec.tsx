@@ -1,13 +1,7 @@
-import React, {ReactNode} from "react";
+import React from "react";
 import {render, fireEvent, waitFor} from "@testing-library/react";
 import {Header} from "@components";
 import {ANIMATION_DELAY} from "@constants";
-
-jest.mock("gatsby", () => ({
-	...jest.requireActual("gatsby"),
-	useStaticQuery: jest.fn(),
-	Link: ({ to, children }: { to: string, children: ReactNode}) => <a href={to}>{children}</a>,
-}));
 
 jest.mock('@heroicons/react/24/solid', () => ({
 	Bars3Icon: () => <div>Menu</div>,
