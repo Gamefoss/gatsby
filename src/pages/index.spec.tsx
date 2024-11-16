@@ -1,15 +1,16 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import IndexPage from "./index";
 import {mock} from "jest-mock-extended";
-import {PageProps} from "gatsby";
 import {PodcastRssFeedEpisodeData} from "gatsby-source-podcast-rss-feed";
+
+import IndexPage, {Head} from "./index";
 
 jest.mock('@layouts', () => ({
 	BaseLayout: ({children}: {children: React.ReactNode}) => <div>{children}</div>
 }))
 
-test("renders IndexPage with podcast episodes", () => {
+describe("IndexPage", () => {
+	
 	const mockedData: PodcastRssFeedEpisodeData = {
 		allPodcastRssFeedEpisode: {
 			nodes: [
@@ -38,14 +39,36 @@ test("renders IndexPage with podcast episodes", () => {
 			],
 		},
 	};
-	const props = mock<PageProps<PodcastRssFeedEpisodeData>>();
-	const { getByText } = render(<IndexPage
-		{...props}
-		data={mockedData}
-		children={undefined}
-	/>
-	);
 	
-	expect(getByText("Episode 1")).toBeInTheDocument();
-	expect(getByText("Episode 2")).toBeInTheDocument();
+	it("renders IndexPage with podcast episodes", () => {
+		const { getByText } = render(
+			<IndexPage
+				{...mock()}
+				data={mockedData}
+				children={undefined}
+			/>
+		);
+		expect(getByText("Episode 1")).toBeInTheDocument();
+		expect(getByText("Episode 2")).toBeInTheDocument();
+	});
+	it("renders IndexPage without podcast episodes", () => {
+		const { queryByText } = render(
+			<IndexPage
+				{...mock()}
+				data={{allPodcastRssFeedEpisode: {nodes: []}}}
+				children={undefined}
+			/>
+		);
+		expect(queryByText("Episode 1")).not.toBeInTheDocument();
+		
+	});
+});
+
+describe("Head", () => {
+	
+	
+	it("renders Head", () => {
+		const { getByText } = render(Head(mock()));
+		expect(getByText("Home Page | Gamefoss")).toBeInTheDocument();
+	});
 });

@@ -7,7 +7,7 @@ jest.mock("@components", () => ({
 }));
 
 describe("BaseLayout", () => {
-	it("Should render children, <Header /> and <main /> correctly", () => {
+	it("Should render children, <HeaderComponent /> and <main /> correctly", () => {
 		const { getByText, getByTestId } = render(
 			<BaseLayout>
 				<div>Test Child</div>
