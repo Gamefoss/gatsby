@@ -13,8 +13,10 @@ import {HeaderProps} from "./header.component.types";
 
 
 import logo from "@images/horizontal-logo.svg";
-import "./header.component.css";
 import {ANIMATION_DELAY} from "@constants";
+import {Socials} from "../socials/socials.component";
+
+import "./header.component.css";
 
 /**
  * HeaderComponent component
@@ -45,7 +47,10 @@ const Header = ({menu = []}: HeaderProps) => {
 				'menu__opened': menuOpened
 			})}
 		>
-			<div className="overlay">&nbsp;</div>
+			<div
+				className="overlay"
+				onClick={toggleMenu}
+			>&nbsp;</div>
 			<nav className="site-wrapper">
 				<button
 					id="menu-toggle"
@@ -53,7 +58,6 @@ const Header = ({menu = []}: HeaderProps) => {
 					aria-label="Toggle menu"
 					onClick={toggleMenu}
 				>
-					
 					{menuOpen ? <CloseIcon/> : <HamburgerIcon/>}
 				</button>
 				<h1 id="main-logo">
@@ -61,24 +65,31 @@ const Header = ({menu = []}: HeaderProps) => {
 						<img src={logo} alt={"Gamefoss"}/>
 					</Link>
 				</h1>
-				<ul
+				<div
 					data-testid="header-menu"
+					className="header-menu"
 				>
-					{
-						menu?.map(({link, title}, index) => (
-							<li key={`menu-item-${index}`}>
-								<Link to={link}>{title}</Link>
-							</li>
-						))
-					}
-				</ul>
-				<button
-					id="search-toggle"
-					data-testid="header-search-toggle"
-					aria-label="Toggle search"
-				>
-					<SearchIcon/>
-				</button>
+					<ul className="header-menu--items">
+						{
+							menu?.map(({link, title}, index) => (
+								<li key={`menu-item-${index}`}>
+									<Link to={link}>{title}</Link>
+								</li>
+							))
+						}
+					</ul>
+					<Socials />
+				</div>
+				<div className={"header-menu--right"}>
+					<Socials size={30} />
+					<button
+						id="search-toggle"
+						data-testid="header-search-toggle"
+						aria-label="Toggle search"
+					>
+						<SearchIcon/>
+					</button>
+				</div>
 			</nav>
 		</header>
 	);
