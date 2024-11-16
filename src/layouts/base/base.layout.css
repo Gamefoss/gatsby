@@ -1,7 +1,19 @@
+.main-grid {
+    @apply
+    flex
+    flex-col
+    h-screen
+    justify-between
+    ;
+}
+
 main {
     @apply
-        p-2
-        pt-10
-        max-w-screen-2xl
-        mx-auto;
+    p-2
+    pt-10
+    max-w-screen-2xl
+    w-full
+    mx-auto
+    mb-auto
+    ;
 }
