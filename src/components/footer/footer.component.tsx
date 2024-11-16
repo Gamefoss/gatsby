@@ -1,14 +1,40 @@
-import React from "react";
+import React, {FunctionComponent} from "react";
+
+import {Socials} from "@components";
 
 import "./footer.component.css";
-const Footer = () => {
+import dihggLogo from "@images/dihgg.svg";
+
+const Footer: FunctionComponent = () => {
 	return (
 		<footer data-testid="footer-component">
-			<div>The socials will be here</div>
+			<div className="socials-container">
+				<div className="socials site-wrapper">
+					<p>Nos siga nas redes Sociais:</p>
+					<Socials />
+				</div>
+			</div>
 			<div>The links will be here</div>
 			<div className="disclaimer">
 				<div className="site-wrapper">
 					<p>&copy; {new Date().getFullYear()} Todos os direitos reservados</p>
+					<p>Todas as imagens de filmes, jogos, séries e etc são marcas registradas dos seus respectivos proprietários
+					</p>
+					<br/>
+					<p className="dihgg">
+						<span>Desenvolvido por:&nbsp;</span>
+						<a
+							href="//dihgg.com"
+							target="_blank"
+							rel="noreferrer"
+							title={"Dihgg"}
+						>
+							<img
+								src={dihggLogo}
+								alt={"Dihgg"}
+							/>
+						</a>
+					</p>
 				</div>
 			</div>
 		</footer>

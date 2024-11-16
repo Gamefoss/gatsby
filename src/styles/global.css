@@ -11,5 +11,7 @@ body {
 .site-wrapper {
     @apply
     max-w-screen-2xl
+    px-4
+    w-full
     ;
 }

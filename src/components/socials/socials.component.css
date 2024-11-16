@@ -1,0 +1,15 @@
+.socials-component {
+    @apply
+    flex
+    justify-center
+    ;
+
+    .social-icon {
+        &:hover {
+            g.social-svg-icon {
+                @apply
+                !fill-black;
+            }
+        }
+    }
+}
