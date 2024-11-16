@@ -3,5 +3,15 @@
 @tailwind utilities;
 
 body {
-    @apply bg-neutral-300;
+    @apply
+    bg-neutral-300
+    ;
+}
+
+.site-wrapper {
+    @apply
+    max-w-screen-2xl
+    px-4
+    w-full
+    ;
 }

@@ -21,7 +21,10 @@ const BaseLayout: FunctionComponent<{ children: ReactNode }> = ({children}) => {
 					link: "/test"
 				}
 			]}/>
-			<main data-testid="main-content">
+			<main
+				data-testid="main-content"
+				className="site-wrapper"
+			>
 				{children}
 			</main>
 			<Footer/>

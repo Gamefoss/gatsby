@@ -1,0 +1,46 @@
+footer {
+    @apply
+    text-white
+    ;
+
+    .socials-container {
+        @apply
+        bg-sky-600
+        ;
+    }
+    .socials {
+        @apply
+
+        flex
+        flex-col
+        md:flex-row
+        justify-center
+        md:justify-end
+        items-center
+        py-4
+        ;
+    }
+
+    .disclaimer {
+        @apply
+        bg-gray-950
+        text-sm
+        py-2
+        text-center
+        md:text-right
+        ;
+    }
+
+    .dihgg {
+        @apply
+        inline-flex
+        items-center
+        text-xs
+        ;
+
+        img {
+            @apply
+            inline-block;
+        }
+    }
+}

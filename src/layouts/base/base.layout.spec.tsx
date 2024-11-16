@@ -3,7 +3,8 @@ import { render } from "@testing-library/react";
 import { BaseLayout } from "@layouts";
 
 jest.mock("@components", () => ({
-	Header: () => <div>Mocked Header</div>
+	Header: () => <div>Mocked Header</div>,
+	Footer: () => <div>Mocked Footer</div>,
 }));
 
 describe("BaseLayout", () => {

@@ -45,8 +45,8 @@ const Header = ({menu = []}: HeaderProps) => {
 				'menu__opened': menuOpened
 			})}
 		>
-			<div className="overlay"></div>
-			<nav>
+			<div className="overlay">&nbsp;</div>
+			<nav className="site-wrapper">
 				<button
 					id="menu-toggle"
 					data-testid="header-menu-toggle"
