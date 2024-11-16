@@ -1,6 +1,6 @@
 import {Link} from "gatsby";
 
-import React, {useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import {clsx} from "clsx";
 
 import {
@@ -18,11 +18,42 @@ import {Socials} from "../socials/socials.component";
 
 import "./header.component.css";
 
+const SearchHeader: FunctionComponent = () => {
+	const [searchOpen, setSearchOpen] = useState(false);
+	return (
+		<div
+			className={
+				clsx("search-header",
+					{
+						'search-header__open': searchOpen
+					}
+				)
+			}
+		>
+			<input
+				type="text"
+				placeholder="Search..."
+				aria-label="Search"
+				className="search-header--input"
+			/>
+			<button
+				className="search-header--button"
+				data-testid="header-search-toggle"
+				aria-label="Toggle search"
+				onClick={() => setSearchOpen(!searchOpen)}
+			>
+				<SearchIcon/>
+			</button>
+		</div>
+	);
+}
+
+
 /**
  * HeaderComponent component
  * @description The header component for the site
  */
-const Header = ({menu = []}: HeaderProps) => {
+const Header: FunctionComponent = ({menu = []}: HeaderProps) => {
 	
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [menuOpened, setMenuOpened] = useState(false);
@@ -78,17 +109,11 @@ const Header = ({menu = []}: HeaderProps) => {
 							))
 						}
 					</ul>
-					<Socials />
+					<Socials/>
 				</div>
 				<div className={"header-menu--right"}>
-					<Socials size={30} />
-					<button
-						id="search-toggle"
-						data-testid="header-search-toggle"
-						aria-label="Toggle search"
-					>
-						<SearchIcon/>
-					</button>
+					<SearchHeader />
+					<Socials size={30}/>
 				</div>
 			</nav>
 		</header>
