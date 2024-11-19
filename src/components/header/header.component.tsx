@@ -1,28 +1,23 @@
 import {Link} from "gatsby";
 
-import React, {useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import {clsx} from "clsx";
 
-import {
-	Bars3Icon as HamburgerIcon,
-	MagnifyingGlassIcon as SearchIcon,
-	XMarkIcon as CloseIcon
-} from "@heroicons/react/24/solid"
+import {Bars3Icon as HamburgerIcon, XMarkIcon as CloseIcon} from "@heroicons/react/24/solid"
+import {ANIMATION_DELAY} from "@constants";
+import {Socials, SearchHeader} from "@components";
 
 import {HeaderProps} from "./header.component.types";
 
-
 import logo from "@images/horizontal-logo.svg";
-import {ANIMATION_DELAY} from "@constants";
-import {Socials} from "../socials/socials.component";
-
 import "./header.component.css";
+
 
 /**
  * HeaderComponent component
  * @description The header component for the site
  */
-const Header = ({menu = []}: HeaderProps) => {
+const Header: FunctionComponent<HeaderProps> = ({menu = []}) => {
 	
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [menuOpened, setMenuOpened] = useState(false);
@@ -78,17 +73,11 @@ const Header = ({menu = []}: HeaderProps) => {
 							))
 						}
 					</ul>
-					<Socials />
+					<Socials/>
 				</div>
 				<div className={"header-menu--right"}>
-					<Socials size={30} />
-					<button
-						id="search-toggle"
-						data-testid="header-search-toggle"
-						aria-label="Toggle search"
-					>
-						<SearchIcon/>
-					</button>
+					<SearchHeader />
+					<Socials size={30}/>
 				</div>
 			</nav>
 		</header>

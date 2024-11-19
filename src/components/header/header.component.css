@@ -91,15 +91,30 @@ header {
     .header-menu--right {
         @apply
         flex
+        flex-row-reverse
         items-center
+        relative
+        pr-10
         ;
         .socials-component {
             @apply
             hidden
             md:flex
+            transition-opacity
+            ease-in-out
+            delay-200
             ;
         }
     }
+
+    .search-header {
+        @apply
+        absolute
+        right-0
+        z-20
+        ;
+    }
+
 
     #main-logo {
         img {
@@ -158,4 +173,5 @@ header {
             ;
         }
     }
+
 }
