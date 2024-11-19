@@ -9,6 +9,12 @@ jest.mock('@heroicons/react/24/solid', () => ({
 	MagnifyingGlassIcon: () => <div>Search</div>,
 }));
 
+jest.mock('@components', () => ({
+	...jest.requireActual('@components'),
+	SearchHeader: () => <div>Search</div>,
+	Socials: () => <div>Socials</div>,
+}));
+
 describe("Header", () => {
 	describe("Render", () => {
 		it("renders logo correctly", () => {
@@ -33,9 +39,9 @@ describe("Header", () => {
 			expect(getByText("Test")).toBeInTheDocument();
 		});
 		
-		it("renders search button", () => {
-			const { getByTestId } = render(<Header />);
-			expect(getByTestId("header-search-toggle")).toBeInTheDocument();
+		it("renders search", () => {
+			const { getByText } = render(<Header />);
+			expect(getByText("Search")).toBeInTheDocument();
 		});
 	});
 	
@@ -56,7 +62,6 @@ describe("Header", () => {
 			await waitFor(() => {
 				expect(getByText("Menu")).toBeInTheDocument();
 			}, {timeout: ANIMATION_DELAY + 100});
-			
 		});
 	});
 });

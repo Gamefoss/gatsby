@@ -105,12 +105,14 @@ header {
             delay-200
             ;
         }
-        .search-header {
-            @apply
-            absolute
-            right-0
-            ;
-        }
+    }
+
+    .search-header {
+        @apply
+        absolute
+        right-0
+        z-20
+        ;
     }
 
 
@@ -168,68 +170,6 @@ header {
             @apply
             opacity-75
             cursor-pointer
-            ;
-        }
-    }
-
-}
-
-.search-header {
-    @apply
-    flex
-    justify-end
-    items-center
-    relative
-    overflow-x-hidden
-    transition-all
-    ease-in-out
-    delay-200
-    w-6
-    z-10
-    ;
-
-    input {
-        @apply
-        absolute
-        top-0
-        w-full
-        bg-cyan-50
-        text-black
-        border-none
-        px-2
-        -right-6
-        transition-all
-        ease-in-out
-        delay-200
-        ;
-    }
-
-    .search-header--button {
-        @apply
-        transition-colors
-        ease-in-out
-        delay-200
-        z-10;
-    }
-
-    &.search-header__open {
-        + .socials-component {
-            @apply
-            opacity-0;
-        }
-        @apply
-            w-64
-        ;
-
-        input {
-            @apply
-            right-0
-            ;
-        }
-
-        .search-header--button {
-            @apply
-            text-cyan-600
             ;
         }
     }
