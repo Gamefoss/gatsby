@@ -13,33 +13,67 @@ jest.mock("@heroicons/react/24/solid", () =>({
 }));
 
 describe("SearchHeader", () => {
-	it("renders search input and button", () => {
-		const { getByTestId } = render(<SearchHeader />);
-		expect(getByTestId("header-search--input")).toBeInTheDocument();
-		expect(getByTestId("header-search--button")).toBeInTheDocument();
+	
+	afterEach(() => {
+		jest.clearAllMocks();
 	});
 	
-	it("toggles search input visibility on button click", () => {
-		const { getByTestId } = render(<SearchHeader />);
-		const searchButton = getByTestId("header-search--button");
-		const searchInput = getByTestId("header-search--input");
-		
-		fireEvent.click(searchButton);
-		expect(searchInput).toHaveFocus();
-		
-		fireEvent.click(searchButton);
-		expect(searchInput).not.toHaveFocus();
+	describe("render", () => {
+		it("renders search input and button", () => {
+			const { getByTestId } = render(<SearchHeader />);
+			expect(getByTestId("header-search--input")).toBeInTheDocument();
+			expect(getByTestId("header-search--button")).toBeInTheDocument();
+		});
 	});
 	
-	it("navigates to search page with query on input value", () => {
-		const { getByTestId, getByPlaceholderText } = render(<SearchHeader />);
-		const searchButton = getByTestId("header-search--button");
-		const searchInput = getByPlaceholderText("Search...");
+	describe("onClick", () => {
+		it("toggles search input visibility on button click", () => {
+			const { getByTestId } = render(<SearchHeader />);
+			const searchButton = getByTestId("header-search--button");
+			const searchInput = getByTestId("header-search--input");
+			
+			fireEvent.click(searchButton);
+			expect(searchInput).toHaveFocus();
+			
+			fireEvent.click(searchButton);
+			expect(searchInput).not.toHaveFocus();
+		});
 		
-		fireEvent.click(searchButton);
-		fireEvent.change(searchInput, { target: { value: "test query" } });
-		fireEvent.click(searchButton);
+		it("navigates to search page with query on input value", () => {
+			const { getByTestId } = render(<SearchHeader />);
+			const searchButton = getByTestId("header-search--button");
+			const searchInput = getByTestId("header-search--input");
+			
+			fireEvent.click(searchButton);
+			fireEvent.change(searchInput, { target: { value: "test query" } });
+			fireEvent.click(searchButton);
+			
+			expect(navigate).toHaveBeenCalledWith("/search?q=test query");
+		});
+	});
+	
+	describe("onSubmit", () => {
+		it("submits the form and navigates to search page with query", () => {
+			const { getByTestId } = render(<SearchHeader />);
+			const searchButton = getByTestId("header-search--button");
+			const searchInput = getByTestId("header-search--input");
+			
+			fireEvent.click(searchButton);
+			fireEvent.change(searchInput, { target: { value: "test query" } });
+			fireEvent.submit(searchInput);
+			
+			expect(navigate).toHaveBeenCalledWith("/search?q=test query");
+		});
 		
-		expect(navigate).toHaveBeenCalledWith("/search?q=test query");
+		it("does not navigate if input is empty on submit", () => {
+			const { getByTestId } = render(<SearchHeader />);
+			const searchButton = getByTestId("header-search--button");
+			const searchInput = getByTestId("header-search--input");
+			
+			fireEvent.click(searchButton);
+			fireEvent.submit(searchInput);
+			
+			expect(navigate).not.toHaveBeenCalled();
+		});
 	});
 });
