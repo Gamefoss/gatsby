@@ -1,13 +1,11 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {mock} from "jest-mock-extended";
 import {PodcastRssFeedEpisodeData} from "gatsby-source-podcast-rss-feed";
 
-import IndexPage, {Head} from "./index";
+import "@mocks/layouts.mock";
 
-jest.mock('@layouts', () => ({
-	BaseLayout: ({children}: {children: React.ReactNode}) => <div>{children}</div>
-}))
+import IndexPage, {Head} from "./index";
 
 describe("IndexPage", () => {
 	
