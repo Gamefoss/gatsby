@@ -22,7 +22,7 @@ const parsedPaths: Record<string, string> = Object.entries(paths).reduce((acc, [
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `Gamefoss`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://www.gamefoss.com.br`
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -45,7 +45,8 @@ const config: GatsbyConfig = {
       "path": `${__dirname}/src/images/`
     },
     __key: "images"
-  }, {
+  },
+  {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "pages",
@@ -74,6 +75,12 @@ const config: GatsbyConfig = {
   {
     resolve: `gatsby-plugin-create-client-paths`,
     options: { prefixes: [`/search/*`] },
+  },
+  {
+    resolve: `gatsby-source-wordpress`,
+    options: {
+      url: `https://gamefoss.com.br/cms/graphql`
+    }
   },
     SearchConfig
   ]

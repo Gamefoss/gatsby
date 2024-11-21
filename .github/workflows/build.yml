@@ -1,0 +1,50 @@
+name: Build and Deploy via FTP
+
+on:
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+  repository_dispatch: # Allows triggering via webhook
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for all tags and branches
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build project
+        run: npm run build
+
+      - name: Package files for deployment
+        run: |
+          ZIPNAME="build-$(date +%Y%m%d%H%M%S).zip"
+          zip -r $ZIPNAME ./public/
+          echo "ZIPNAME=$ZIPNAME" >> $GITHUB_ENV
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-zip
+          path: ./${{ env.ZIPNAME }}
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./public/
+          server-dir: ./ # Adjust this path to the desired location on your FTP server

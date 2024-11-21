@@ -23,8 +23,6 @@ const PodcastTemplate: FunctionComponent<PageProps<any>> = ({data}) => {
 	);
 }
 
-export default PodcastTemplate;
-
 export const Head: HeadFC = () => <title>PODCAST!</title>
 
 export const query = graphql`
@@ -47,3 +45,5 @@ export const query = graphql`
 		}
 	}
 `;
+
+export default PodcastTemplate;
