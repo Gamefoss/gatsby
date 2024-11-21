@@ -27,7 +27,10 @@ declare module 'gatsby-source-podcast-rss-feed' {
 	 */
 	export type PodcastRssFeedEpisodeData = DeepPartial<{
 		allPodcastRssFeedEpisode: {
-			nodes: { item: PodcastRssFeedEpisode }[];
+			nodes: {
+				id: string
+				item: PodcastRssFeedEpisode
+			}[];
 		}
 	}>;
 }
