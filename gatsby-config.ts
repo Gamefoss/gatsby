@@ -71,6 +71,10 @@ const config: GatsbyConfig = {
     resolve: `gatsby-plugin-root-import`,
     options: parsedPaths
   },
+  {
+    resolve: `gatsby-plugin-create-client-paths`,
+    options: { prefixes: [`/search/*`] },
+  },
     SearchConfig
   ]
 };

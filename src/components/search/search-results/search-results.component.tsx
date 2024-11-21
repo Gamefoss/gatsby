@@ -62,7 +62,7 @@ const SearchResults: FunctionComponent = () => {
 							{results.map((result: any) => (
 								<li key={result.id}>
 									<a
-										href={result.url || result.slug}
+										href={result.url || `/${result.slug}`}
 										target={result.url ? "_blank" : "_self"}
 									>{result.title}</a>
 								</li>
