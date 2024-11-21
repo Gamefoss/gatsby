@@ -2,6 +2,7 @@ import type { GatsbyConfig } from "gatsby";
 import {join} from "node:path";
 
 import {compilerOptions} from './tsconfig.json'
+import {SearchConfig} from "./config";
 
 const {paths} = compilerOptions;
 
@@ -69,7 +70,12 @@ const config: GatsbyConfig = {
   {
     resolve: `gatsby-plugin-root-import`,
     options: parsedPaths
-  }
+  },
+  {
+    resolve: `gatsby-plugin-create-client-paths`,
+    options: { prefixes: [`/search/*`] },
+  },
+    SearchConfig
   ]
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {Socials} from "@components";
 
 jest.mock('@constants', () => ({
@@ -27,6 +27,7 @@ describe("Socials", () => {
 				]}
 			/>
 		);
+		console.log(screen.logTestingPlaygroundURL());
 		expect(container.innerHTML).toContain("//test.com");
 	});
 });

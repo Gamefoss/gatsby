@@ -10,7 +10,6 @@ jest.mock("@components", () => ({
 describe("Footer", () => {
 	it("renders footer content", () => {
 		const { getByTestId } = render(<Footer />);
-		console.log(screen.logTestingPlaygroundURL())
 		expect(getByTestId("footer-component")).toBeInTheDocument();
 	});
 });

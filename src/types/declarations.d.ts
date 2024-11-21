@@ -13,3 +13,10 @@ declare module "*.svg" {
 	const content: any;
 	export default content;
 }
+
+/**
+ * Declare react-use-flexsearch module as this module does not have types
+ */
+declare module "react-use-flexsearch" {
+	export function useFlexSearch(query: string, index: any, store: any): any[];
+}
