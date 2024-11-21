@@ -18,29 +18,35 @@ export const SearchConfig = {
 		// GraphQL query used to fetch all data for the search index. This is
 		// required.
 		query: `
-          {
-            allMarkdownRemark {
-              nodes {
-                id
-                frontmatter {
-                  slug
-                  title
-                }
-                rawMarkdownBody
-              }
-            }
-            allPodcastRssFeedEpisode {
-              nodes {
-                id
-                item {
-                  title
-                  link
-                  contentSnippet
-                }
-              }
-            }
-          }
-        `,
+			{
+				allWpPage {
+			    nodes {
+			      id
+			      title
+			      uri
+			      content
+			    }
+			  }
+			  allWpPost {
+			    nodes {
+			      id
+			      title
+			      uri
+			      content
+			    }
+			  }
+			  allPodcastRssFeedEpisode {
+			    nodes {
+			      id
+			      item {
+			        title
+			        link
+			        contentSnippet
+			      }
+			    }
+			  }
+			}
+		`,
 		
 		// Field used as the reference value for each document.
 		// Default: 'id'.
@@ -61,12 +67,19 @@ export const SearchConfig = {
 		// containing properties to index. The objects must contain the `ref`
 		// field above (default: 'id'). This is required.
 		normalizer: ({ data } : {data: any}) => {
-			const pages = data.allMarkdownRemark.nodes.map((node: any) => ({
+			const pages = data.allWpPage.nodes.map((node: Queries.WpPost) => ({
 				id: node.id,
-				slug: node.frontmatter.slug,
+				slug: `page${node.uri}`,
 				url: null,
-				title: node.frontmatter.title,
-				body: node.rawMarkdownBody,
+				title: node.title,
+				body: node.content,
+			}));
+			const posts = data.allWpPost.nodes.map((node: Queries.WpPost) => ({
+				id: node.id,
+				slug: `article${node.uri}`,
+				url: null,
+				title: node.title,
+				body: node.content,
 			}));
 			
 			const podcasts = data.allPodcastRssFeedEpisode.nodes.map((node: Queries.podcastRssFeedEpisode) => {
@@ -78,7 +91,7 @@ export const SearchConfig = {
 					body: node.item?.contentSnippet
 				};
 			});
-			return [...pages, ...podcasts];
+			return [...pages, ...posts, ...podcasts];
 		}
 	},
 }

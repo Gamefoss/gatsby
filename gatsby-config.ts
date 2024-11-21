@@ -55,13 +55,6 @@ const config: GatsbyConfig = {
     __key: "pages"
   },
   {
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      name: `content`,
-      path: `${__dirname}/src/content/pages`,
-    },
-  },
-  {
     resolve: `gatsby-source-podcast-rss-feed`,
     options: {
       feedURL: `https://anchor.fm/s/4c499e08/podcast/rss`,
