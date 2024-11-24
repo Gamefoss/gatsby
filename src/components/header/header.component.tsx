@@ -5,7 +5,7 @@ import {clsx} from "clsx";
 
 import {Bars3Icon as HamburgerIcon, XMarkIcon as CloseIcon} from "@heroicons/react/24/solid"
 import {ANIMATION_DELAY} from "@constants";
-import {Socials, SearchHeader} from "@components";
+import {Socials, SearchHeader, Menu} from "@components";
 
 import {HeaderProps} from "./header.component.types";
 

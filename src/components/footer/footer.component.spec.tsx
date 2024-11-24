@@ -5,6 +5,7 @@ import { Footer } from "@components";
 jest.mock("@components", () => ({
 	...jest.requireActual("@components"),
 	Socials: () => <div data-testid="socials-component" />,
+	Menu: () => <div data-testid="menu-component" />,
 }));
 
 describe("Footer", () => {

@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 
-import {Socials} from "@components";
+import {Menu, Socials} from "@components";
 
 import "./footer.component.css";
 import dihggLogo from "@images/dihgg.svg";
@@ -14,7 +14,9 @@ const Footer: FunctionComponent = () => {
 					<Socials />
 				</div>
 			</div>
-			<div>The links will be here</div>
+			<div>
+				<Menu location={"footer-menu"} />
+			</div>
 			<div className="disclaimer">
 				<div className="site-wrapper">
 					<p>&copy; {new Date().getFullYear()} Todos os direitos reservados</p>
