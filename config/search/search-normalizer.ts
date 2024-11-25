@@ -1,4 +1,4 @@
-import {SLUGIFY_OPTIONS} from "../../src/constants";
+import {slugTransform} from "./search-normalizer.decorator";
 
 type PossibleSearchItem = {
 	node: {
@@ -8,6 +8,8 @@ type PossibleSearchItem = {
 		name: string,
 		slug: string,
 		content: string,
+		description: string,
+		nodeType: 'Post' | 'Page' | 'Category' | 'Tag',
 		item: {
 			title: string,
 			link: string,
@@ -16,50 +18,23 @@ type PossibleSearchItem = {
 	}>
 }
 
-type SlugifyFnOptions = (txt: string, options: Record<string, string | boolean | RegExp>) => string;
-
 interface ISearchNormalizer {
 	normalize<T extends { node: { id: string } }>(edges: Readonly<T[]>): SearchResult[];
 }
 
 export class SearchNormalizer implements ISearchNormalizer {
-	
-	/**
-	 * The function that will handle slugification.
-	 */
-	private readonly slugifyFn: SlugifyFnOptions;
-	
-	/**
-	 * Create a new instance of the SearchNormalizer.
-	 * @param slugifyFn The function that will handle slugification.
-	 */
-	constructor(slugifyFn: SlugifyFnOptions) {
-		this.slugifyFn = slugifyFn;
-	}
-	
-	/**
-	 * Create a slug from a given text.
-	 * @param txt The text to create a slug from.
-	 */
-	private createSlug (txt: string) {
-		return this.slugifyFn(txt, SLUGIFY_OPTIONS);
-	}
-	
 	/**
 	 * Normalize the search results to the required format for the search index.
 	 * @param edges The edges from the GraphQL query.
 	 */
+	@slugTransform
 	public normalize<T extends { node: { id: string } }>(edges: Readonly<T[]>): SearchResult[] {
-		return edges.map(({node}: PossibleSearchItem) => {
-			
-			const slug = node.slug || node.item?.link || "";
-			
-			return {
-				id: node.id,
-				title: (node.title || node.name || node.item?.title) as string,
-				slug,
-				body: (node.content || node.item?.contentSnippet) as string
-			};
-		})
+		return edges.map(({node}: PossibleSearchItem) => ({
+			id: node.id,
+			title: (node.title || node.name || node.item?.title) as string,
+			slug: (node.slug || node.item?.link) as string,
+			body: (node.content || node.description || node.item?.contentSnippet) as string,
+			type: (node.item) ? 'Podcast' : node.nodeType
+		}));
 	}
 }

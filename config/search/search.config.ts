@@ -1,5 +1,4 @@
 import {SearchNormalizer} from "./search-normalizer";
-import slugify from "slugify";
 
 export const SearchConfig = {
 	resolve: 'gatsby-plugin-local-search',
@@ -25,17 +24,10 @@ export const SearchConfig = {
 		  allWpPage {
 		    edges {
 		      node {
+		        nodeType
 		        id
 		        title
-		        uri
-		        content
-		      }
-		    }
-		    edges {
-		      node {
-		        id
-		        title
-		        uri
+		        slug
 		        content
 		      }
 		    }
@@ -43,10 +35,33 @@ export const SearchConfig = {
 		  allWpPost {
 		    edges {
 		      node {
+		        nodeType
 		        id
 		        title
-		        uri
+		        slug
 		        content
+		      }
+		    }
+		  }
+		  allWpCategory {
+		    edges {
+		      node {
+		        nodeType
+		        id
+		        name
+		        slug
+		        description
+		      }
+		    }
+		  }
+		  allWpTag {
+		    edges {
+		      node {
+		        nodeType
+		        id
+		        name
+		        slug
+		        description
 		      }
 		    }
 		  }
@@ -84,13 +99,15 @@ export const SearchConfig = {
 		// containing properties to index. The objects must contain the `ref`
 		// field above (default: 'id'). This is required.
 		normalizer: ({ data } : {data: Queries.Query}) => {
-			const searchNormalizer = new SearchNormalizer(slugify);
+			const searchNormalizer = new SearchNormalizer();
 			
 			const posts = searchNormalizer.normalize<Queries.WpPostEdge>(data.allWpPost.edges);
 			const pages = searchNormalizer.normalize<Queries.WpPageEdge>(data.allWpPage.edges);
+			const categories = searchNormalizer.normalize<Queries.WpCategoryEdge>(data.allWpCategory.edges);
+			const tags = searchNormalizer.normalize<Queries.WpTagEdge>(data.allWpTag.edges);
 			const podcasts = searchNormalizer.normalize<Queries.podcastRssFeedEpisodeEdge>(data.allPodcastRssFeedEpisode.edges);
 			
-			return [...posts, ...pages, ...podcasts];
+			return [...posts, ...pages, ...categories, ...tags, ...podcasts];
 		}
 	},
 }
