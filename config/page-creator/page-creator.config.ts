@@ -2,6 +2,7 @@ import type {PodcastRssFeedEpisode, PodcastRssFeedEpisodeData} from "gatsby-sour
 import slugify from "slugify";
 import path from "node:path";
 import {CreatePageArgs} from "gatsby";
+import {SLUGIFY_OPTIONS} from "../../src/constants";
 
 type GraphqlType = <T>(query: string) => Promise<{ errors?: any, data?: T | undefined }>;
 
@@ -54,10 +55,7 @@ export class PodcastCreator extends Creator {
 		
 		podcastData?.allPodcastRssFeedEpisode?.nodes?.forEach((node) => {
 			const {item, id} = node as { item: PodcastRssFeedEpisode, id: string };
-			const slug = slugify(item!.title as string, {
-				lower: true,
-				remove: /[*+~.,()'"!:@]/g
-			});
+			const slug = slugify(item!.title as string, SLUGIFY_OPTIONS);
 			actions.createPage({
 				path: `/podcast/${slug}`,
 				component: path.resolve(`./src/templates/podcast.template.tsx`),

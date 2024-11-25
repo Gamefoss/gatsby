@@ -25,3 +25,8 @@ export const SOCIALS: Social[] = [
 		link: "//www.twitch.tv/game_foss"
 	},
 ]
+
+export const SLUGIFY_OPTIONS = {
+	lower: true,
+	remove: /[*+~.,()'"!:@]/g
+};

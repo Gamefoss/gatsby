@@ -1,3 +1,6 @@
+import {SearchNormalizer} from "./search-normalizer";
+import slugify from "slugify";
+
 export const SearchConfig = {
 	resolve: 'gatsby-plugin-local-search',
 	options: {
@@ -18,34 +21,48 @@ export const SearchConfig = {
 		// GraphQL query used to fetch all data for the search index. This is
 		// required.
 		query: `
-			{
-				allWpPage {
-			    nodes {
-			      id
-			      title
-			      uri
-			      content
-			    }
-			  }
-			  allWpPost {
-			    nodes {
-			      id
-			      title
-			      uri
-			      content
-			    }
-			  }
-			  allPodcastRssFeedEpisode {
-			    nodes {
-			      id
-			      item {
-			        title
-			        link
-			        contentSnippet
-			      }
-			    }
-			  }
-			}
+		{
+		  allWpPage {
+		    edges {
+		      node {
+		        id
+		        title
+		        uri
+		        content
+		      }
+		    }
+		    edges {
+		      node {
+		        id
+		        title
+		        uri
+		        content
+		      }
+		    }
+		  }
+		  allWpPost {
+		    edges {
+		      node {
+		        id
+		        title
+		        uri
+		        content
+		      }
+		    }
+		  }
+		  allPodcastRssFeedEpisode {
+		    edges {
+		      node {
+		        id
+		        item {
+		          title
+		          link
+		          contentSnippet
+		        }
+		      }
+		    }
+		  }
+		}
 		`,
 		
 		// Field used as the reference value for each document.
@@ -66,32 +83,14 @@ export const SearchConfig = {
 		// return an array of items to index in the form of flat objects
 		// containing properties to index. The objects must contain the `ref`
 		// field above (default: 'id'). This is required.
-		normalizer: ({ data } : {data: any}) => {
-			const pages = data.allWpPage.nodes.map((node: Queries.WpPost) => ({
-				id: node.id,
-				slug: `page${node.uri}`,
-				url: null,
-				title: node.title,
-				body: node.content,
-			}));
-			const posts = data.allWpPost.nodes.map((node: Queries.WpPost) => ({
-				id: node.id,
-				slug: `article${node.uri}`,
-				url: null,
-				title: node.title,
-				body: node.content,
-			}));
+		normalizer: ({ data } : {data: Queries.Query}) => {
+			const searchNormalizer = new SearchNormalizer(slugify);
 			
-			const podcasts = data.allPodcastRssFeedEpisode.nodes.map((node: Queries.podcastRssFeedEpisode) => {
-				return {
-					id: node.id,
-					slug: null,
-					url: node.item?.link,
-					title: node.item?.title,
-					body: node.item?.contentSnippet
-				};
-			});
-			return [...pages, ...posts, ...podcasts];
+			const posts = searchNormalizer.normalize<Queries.WpPostEdge>(data.allWpPost.edges);
+			const pages = searchNormalizer.normalize<Queries.WpPageEdge>(data.allWpPage.edges);
+			const podcasts = searchNormalizer.normalize<Queries.podcastRssFeedEpisodeEdge>(data.allPodcastRssFeedEpisode.edges);
+			
+			return [...posts, ...pages, ...podcasts];
 		}
 	},
 }
