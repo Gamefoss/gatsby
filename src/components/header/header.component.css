@@ -113,8 +113,12 @@ header {
         right-0
         z-20
         ;
+        &.search-header__open {
+            @apply
+            z-40
+            ;
+        }
     }
-
 
     #main-logo {
         img {
@@ -127,8 +131,15 @@ header {
 
     #menu-toggle {
         @apply
-        z-20
-        md:hidden;
+        z-40
+        md:hidden
+        ;
+    }
+
+    .overlay, .header-menu {
+        @apply
+        z-30
+        ;
     }
 
     .overlay {

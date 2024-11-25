@@ -2,6 +2,8 @@ import {graphql, Link, useStaticQuery} from "gatsby";
 import React, {FunctionComponent} from "react";
 import {clsx} from "clsx";
 
+import "./menu.component.css";
+
 /**
  * This type is originate by picking some properties from the WpMenuItem type
  */
@@ -118,7 +120,8 @@ const MenuItem: FunctionComponent<MenuItemProps> = ({items, className}) => (
 	</ul>
 );
 
-const Menu: FunctionComponent<{ location: string }> = ({location}) => {
+type MenuProps = { location: string, classNames?: string };
+const Menu: FunctionComponent<MenuProps> = ({location, classNames}) => {
 	const data = useStaticQuery<Queries.Query>(graphql`
     {
       allWpMenu {
@@ -147,12 +150,12 @@ const Menu: FunctionComponent<{ location: string }> = ({location}) => {
 	const menuTree = buildMenuTree(menu.menuItems?.nodes as Queries.WpMenuItem[]);
 	
 	return (
-		<>
+		<nav className={clsx("menu-component", classNames)}>
 			<MenuItem
 				items={menuTree}
-				className={"menu-item"}
+				className={"menu-component__list"}
 			/>
-		</>
+		</nav>
 	);
 };
 

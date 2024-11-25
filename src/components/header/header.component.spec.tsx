@@ -1,18 +1,17 @@
 import React from "react";
+
+import "@mocks/heroicons.mock";
+
 import {render, fireEvent, waitFor} from "@testing-library/react";
 import {Header} from "@components";
 import {ANIMATION_DELAY} from "@constants";
 
-jest.mock('@heroicons/react/24/solid', () => ({
-	Bars3Icon: () => <div>Menu</div>,
-	XMarkIcon: () => <div>Close</div>,
-	MagnifyingGlassIcon: () => <div>Search</div>,
-}));
 
 jest.mock('@components', () => ({
 	...jest.requireActual('@components'),
 	SearchHeader: () => <div>Search</div>,
 	Socials: () => <div>Socials</div>,
+	Menu: () => <div>Menu</div>,
 }));
 
 describe("Header", () => {
@@ -22,26 +21,14 @@ describe("Header", () => {
 			expect(getByTestId("header-component")).toBeInTheDocument();
 		});
 		
-		it("renders navigation links correctly", () => {
-			const { getByText } = render(
-				<Header menu={[
-					{
-						title: "Home",
-						link: "/"
-					},
-					{
-						title: "Test",
-						link: "/test"
-					}
-				]} />
-			);
-			expect(getByText("Home")).toBeInTheDocument();
-			expect(getByText("Test")).toBeInTheDocument();
-		});
-		
-		it("renders search", () => {
-			const { getByText } = render(<Header />);
-			expect(getByText("Search")).toBeInTheDocument();
+		it.each([
+			"Search",
+			"Socials",
+			"Menu"
+		])("Render %s at least once", (component) => {
+			const { getAllByText } = render(<Header />);
+			const [element] = getAllByText(component);
+			expect(element).toBeInTheDocument();
 		});
 	});
 	
@@ -61,7 +48,7 @@ describe("Header", () => {
 			fireEvent.click(menuButton);
 			await waitFor(() => {
 				expect(getByText("Menu")).toBeInTheDocument();
-			}, {timeout: ANIMATION_DELAY + 100});
+			}, {timeout: ANIMATION_DELAY + 200});
 		});
 	});
 });

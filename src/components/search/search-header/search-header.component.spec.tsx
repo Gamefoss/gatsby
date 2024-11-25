@@ -1,4 +1,7 @@
 import React from "react";
+
+import "@mocks/heroicons.mock";
+
 import {render, fireEvent} from "@testing-library/react";
 import {SearchHeader} from "@components";
 import {navigate} from "gatsby";
@@ -6,10 +9,6 @@ import {navigate} from "gatsby";
 jest.mock("gatsby", () => ({
 	...jest.requireActual("gatsby"),
 	navigate: jest.fn(),
-}));
-
-jest.mock("@heroicons/react/24/solid", () =>({
-	MagnifyingGlassIcon: () => <div data-testid="search-icon" />,
 }));
 
 describe("SearchHeader", () => {

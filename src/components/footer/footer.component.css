@@ -8,9 +8,9 @@ footer {
         bg-sky-600
         ;
     }
+
     .socials {
         @apply
-
         flex
         flex-col
         md:flex-row
@@ -21,11 +21,29 @@ footer {
         ;
     }
 
+    .footer-menu-container {
+        @apply
+        py-12
+        bg-zinc-600
+        ;
+        .menu-component {
+            @apply
+            md:max-w-screen-xl
+            mx-auto
+            ;
+            .menu-component__list {
+                @apply
+                md:justify-between
+                ;
+            }
+        }
+    }
+
     .disclaimer {
         @apply
         bg-gray-950
         text-sm
-        py-2
+        py-8
         text-center
         md:text-right
         ;

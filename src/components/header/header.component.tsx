@@ -64,15 +64,10 @@ const Header: FunctionComponent<HeaderProps> = ({menu = []}) => {
 					data-testid="header-menu"
 					className="header-menu"
 				>
-					<ul className="header-menu--items">
-						{
-							menu?.map(({link, title}, index) => (
-								<li key={`menu-item-${index}`}>
-									<Link to={link}>{title}</Link>
-								</li>
-							))
-						}
-					</ul>
+					<Menu
+						location={"header-menu"}
+						classNames="header-menu--items"
+					/>
 					<Socials/>
 				</div>
 				<div className={"header-menu--right"}>

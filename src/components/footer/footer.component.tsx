@@ -14,8 +14,11 @@ const Footer: FunctionComponent = () => {
 					<Socials />
 				</div>
 			</div>
-			<div>
-				<Menu location={"footer-menu"} />
+			<div className="footer-menu-container">
+				<Menu
+					location={"footer-menu"}
+					classNames={"site-wrapper"}
+				/>
 			</div>
 			<div className="disclaimer">
 				<div className="site-wrapper">
