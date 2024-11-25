@@ -33,22 +33,31 @@ describe("Header", () => {
 	});
 	
 	describe("Menu Toggling", () => {
-		
 		it("menu is closed by default", () => {
 			const { queryByText } = render(<Header />);
 			expect(queryByText("Close")).not.toBeInTheDocument();
 		});
 		
 		it("toggles menu on button click", async () => {
-			const { getByTestId, getByText } = render(<Header />);
+			const { getByTestId } = render(<Header />);
 			const menuButton = getByTestId("header-menu-toggle");
 			
+			// Initial state
+			expect(getByTestId("header-menu-toggle")).toBeInTheDocument();
+			
+			// Open menu
 			fireEvent.click(menuButton);
-			expect(getByText("Close")).toBeInTheDocument();
+			expect(getByTestId("header-menu-toggle").textContent).toContain("Close");
+			expect(getByTestId('header-component')).toHaveClass('menu__open');
+			expect(getByTestId('header-component')).toHaveClass('menu__opened');
+			
+			// Close menu
 			fireEvent.click(menuButton);
 			await waitFor(() => {
-				expect(getByText("Menu")).toBeInTheDocument();
-			}, {timeout: ANIMATION_DELAY + 200});
+				expect(getByTestId("header-menu-toggle").textContent).toContain("Menu");
+				expect(getByTestId('header-component')).not.toHaveClass('menu__open');
+				expect(getByTestId('header-component')).not.toHaveClass('menu__opened');
+			}, { timeout: ANIMATION_DELAY + 200 });
 		});
 	});
 });

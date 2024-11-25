@@ -7,11 +7,17 @@ import {Bars3Icon as HamburgerIcon, XMarkIcon as CloseIcon} from "@heroicons/rea
 import {ANIMATION_DELAY} from "@constants";
 import {Socials, SearchHeader, Menu} from "@components";
 
-import {HeaderProps} from "./header.component.types";
-
 import logo from "@images/horizontal-logo.svg";
 import "./header.component.css";
 
+type MenuItem = {
+	title: string;
+	link: string;
+}
+
+type HeaderProps = {
+	menu?: MenuItem[];
+}
 
 /**
  * HeaderComponent component
