@@ -2,11 +2,6 @@ import type {PodcastRssFeedEpisode, PodcastRssFeedEpisodeData} from "gatsby-sour
 import slugify from "slugify";
 import path from "node:path";
 import {CreatePageArgs} from "gatsby";
-import WpPostEdge = Queries.WpPostEdge;
-import Maybe = Queries.Maybe;
-import WpPageEdge = Queries.WpPageEdge;
-import WpCategoryEdge = Queries.WpCategoryEdge;
-import WpTagEdge = Queries.WpTagEdge;
 
 type GraphqlType = <T>(query: string) => Promise<{ errors?: any, data?: T | undefined }>;
 
@@ -77,7 +72,7 @@ export class PodcastCreator extends Creator {
  */
 export class WordPressCreator extends Creator {
 	
-	private createFromEdge<T extends { node: { id: string, slug: Maybe<string> } }>(
+	private createFromEdge<T extends { node: { id: string, slug: Queries.Maybe<string> } }>(
 		{
 			edges,
 			prePath,
@@ -138,25 +133,25 @@ export class WordPressCreator extends Creator {
 			}
     `);
 		
-		this.createFromEdge<WpPostEdge>({
+		this.createFromEdge<Queries.WpPostEdge>({
 			edges: data?.allWpPost.edges,
 			prePath: 'article',
 			template: 'article.template.tsx'
 		});
 		
-		this.createFromEdge<WpPageEdge>({
+		this.createFromEdge<Queries.WpPageEdge>({
 			edges: data?.allWpPage.edges,
 			prePath: 'page',
 			template: 'page.template.tsx'
 		});
 		
-		this.createFromEdge<WpCategoryEdge>({
+		this.createFromEdge<Queries.WpCategoryEdge>({
 			edges: data?.allWpCategory.edges,
 			prePath: 'category',
 			template: 'category.template.tsx'
 		})
 		
-		this.createFromEdge<WpTagEdge>({
+		this.createFromEdge<Queries.WpTagEdge>({
 			edges: data?.allWpTag.edges,
 			prePath: 'tag',
 			template: 'tag.template.tsx'

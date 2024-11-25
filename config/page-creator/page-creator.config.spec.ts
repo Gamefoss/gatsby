@@ -1,13 +1,13 @@
-import { PodcastCreator, WordPressCreator } from './page-creator.config';
-import { CreatePageArgs } from 'gatsby';
-import { mock } from 'jest-mock-extended';
+import {PodcastCreator, WordPressCreator} from './page-creator.config';
+import {CreatePageArgs} from 'gatsby';
+import {mock} from 'jest-mock-extended';
 
 describe('PodcastCreator', () => {
 	let actions: CreatePageArgs['actions'];
 	let graphql: jest.Mock;
 	
 	beforeEach(() => {
-		actions = mock<CreatePageArgs['actions']>({ createPage: jest.fn() });
+		actions = mock<CreatePageArgs['actions']>({createPage: jest.fn()});
 		graphql = jest.fn();
 	});
 	
@@ -16,8 +16,8 @@ describe('PodcastCreator', () => {
 			data: {
 				allPodcastRssFeedEpisode: {
 					nodes: [
-						{ id: '1', item: { title: 'Episode 1' } },
-						{ id: '2', item: { title: 'Episode 2' } },
+						{id: '1', item: {title: 'Episode 1'}},
+						{id: '2', item: {title: 'Episode 2'}},
 					],
 				},
 			},
@@ -30,17 +30,17 @@ describe('PodcastCreator', () => {
 		expect(actions.createPage).toHaveBeenCalledWith({
 			path: '/podcast/episode-1',
 			component: expect.any(String),
-			context: { id: '1', slug: 'episode-1' },
+			context: {id: '1', slug: 'episode-1'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
 			path: '/podcast/episode-2',
 			component: expect.any(String),
-			context: { id: '2', slug: 'episode-2' },
+			context: {id: '2', slug: 'episode-2'},
 		});
 	});
 	
 	it('handles empty podcast data gracefully', async () => {
-		graphql.mockResolvedValue({ data: { allPodcastRssFeedEpisode: { nodes: [] } } });
+		graphql.mockResolvedValue({data: {allPodcastRssFeedEpisode: {nodes: []}}});
 		
 		const creator = new PodcastCreator(actions, graphql);
 		await creator.create();
@@ -54,7 +54,7 @@ describe('WordPressCreator', () => {
 	let graphql: jest.Mock;
 	
 	beforeEach(() => {
-		actions = mock<CreatePageArgs['actions']>({ createPage: jest.fn() });
+		actions = mock<CreatePageArgs['actions']>({createPage: jest.fn()});
 		graphql = jest.fn();
 	});
 	
@@ -63,16 +63,28 @@ describe('WordPressCreator', () => {
 			data: {
 				allWpPost: {
 					edges: [
-						{ post: { id: '1', slug: 'post-1' } },
-						{ post: { id: '2', slug: 'post-2' } },
+						{node: {id: '1', slug: 'post-1'}},
+						{node: {id: '2', slug: 'post-2'}},
 					],
 				},
 				allWpPage: {
 					edges: [
-						{ page: { id: '1', slug: 'page-1' } },
-						{ page: { id: '2', slug: 'page-2' } },
+						{node: {id: '1', slug: 'page-1'}},
+						{node: {id: '2', slug: 'page-2'}},
 					],
 				},
+				allWpCategory: {
+					edges: [
+						{node: {id: '1', slug: 'category-1'}},
+						{node: {id: '2', slug: 'category-2'}},
+					]
+				},
+				allWpTag: {
+					edges: [
+						{node: {id: '1', slug: 'tag-1'}},
+						{node: {id: '2', slug: 'tag-2'}},
+					]
+				}
 			},
 		});
 		
@@ -82,30 +94,52 @@ describe('WordPressCreator', () => {
 		expect(actions.createPage).toHaveBeenCalledWith({
 			path: '/article/post-1',
 			component: expect.any(String),
-			context: { id: '1' },
+			context: {id: '1'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
 			path: '/article/post-2',
 			component: expect.any(String),
-			context: { id: '2' },
+			context: {id: '2'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
 			path: '/page/page-1',
 			component: expect.any(String),
-			context: { id: '1' },
+			context: {id: '1'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
 			path: '/page/page-2',
 			component: expect.any(String),
-			context: { id: '2' },
+			context: {id: '2'},
+		});
+		expect(actions.createPage).toHaveBeenCalledWith({
+			path: '/category/category-1',
+			component: expect.any(String),
+			context: {id: '1'},
+		});
+		expect(actions.createPage).toHaveBeenCalledWith({
+			path: '/category/category-2',
+			component: expect.any(String),
+			context: {id: '2'},
+		});
+		expect(actions.createPage).toHaveBeenCalledWith({
+			path: '/tag/tag-1',
+			component: expect.any(String),
+			context: {id: '1'},
+		});
+		expect(actions.createPage).toHaveBeenCalledWith({
+			path: '/tag/tag-2',
+			component: expect.any(String),
+			context: {id: '2'},
 		});
 	});
 	
 	it('handles empty WordPress post and page data gracefully', async () => {
 		graphql.mockResolvedValue({
 			data: {
-				allWpPost: { edges: [] },
-				allWpPage: { edges: [] },
+				allWpPost: {edges: []},
+				allWpPage: {edges: []},
+				allWpCategory: {edges: []},
+				allWpTag: {edges: []}
 			},
 		});
 		
