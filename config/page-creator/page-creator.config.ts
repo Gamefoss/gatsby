@@ -2,6 +2,11 @@ import type {PodcastRssFeedEpisode, PodcastRssFeedEpisodeData} from "gatsby-sour
 import slugify from "slugify";
 import path from "node:path";
 import {CreatePageArgs} from "gatsby";
+import WpPostEdge = Queries.WpPostEdge;
+import Maybe = Queries.Maybe;
+import WpPageEdge = Queries.WpPageEdge;
+import WpCategoryEdge = Queries.WpCategoryEdge;
+import WpTagEdge = Queries.WpTagEdge;
 
 type GraphqlType = <T>(query: string) => Promise<{ errors?: any, data?: T | undefined }>;
 
@@ -71,46 +76,90 @@ export class PodcastCreator extends Creator {
  * Query WordPress API to get Posts and Pages
  */
 export class WordPressCreator extends Creator {
-
+	
+	private createFromEdge<T extends { node: { id: string, slug: Maybe<string> } }>(
+		{
+			edges,
+			prePath,
+			template
+		}: {
+			edges?: ReadonlyArray<T>
+			prePath: string,
+			template: string
+		}
+	) {
+		const {actions} = this;
+		edges?.forEach(({node}) => {
+			const {id, slug} = node;
+			actions.createPage({
+				path: `/${prePath}/${slug}`,
+				component: path.resolve(`./src/templates/${template}`),
+				context: {id}
+			});
+		});
+	}
+	
 	async create(): Promise<void> {
-		const { actions, graphql } = this;
-		const { data } = await graphql<any>(`
+		const {graphql} = this;
+		const {data} = await graphql<Queries.Query>(`
       query WpPostsAndPages {
-        allWpPost(sort: { date: DESC }) {
-          edges {
-            post: node {
-              id
-              slug
-            }
-          }
-        }
-        allWpPage {
-          edges {
-            page: node {
-              id
-              slug
-            }
-          }
-        }
-      }
+			  allWpPost(sort: {date: DESC}) {
+			    edges {
+			      node {
+			        id
+			        slug
+			      }
+			    }
+			  }
+			  allWpPage {
+			    edges {
+			      node {
+			        id
+			        slug
+			      }
+			    }
+			  }
+			  allWpCategory {
+			    edges {
+			      node {
+			        id
+			        slug
+			      }
+			    }
+			  }
+			  allWpTag {
+			    edges {
+			      node {
+			        id
+			        slug
+			      }
+			    }
+			  }
+			}
     `);
 		
-		data.allWpPost.edges.forEach((node: any) => {
-			const { post } = node;
-			actions.createPage({
-				path: `/article/${post.slug}`,
-				component: path.resolve(`./src/templates/article.template.tsx`),
-				context: { id: post.id }
-			});
+		this.createFromEdge<WpPostEdge>({
+			edges: data?.allWpPost.edges,
+			prePath: 'article',
+			template: 'article.template.tsx'
 		});
 		
-		data.allWpPage.edges.forEach((node: any) => {
-			const { page } = node;
-			actions.createPage({
-				path: `/page/${page.slug}`,
-				component: path.resolve(`./src/templates/page.template.tsx`),
-				context: { id: page.id }
-			});
+		this.createFromEdge<WpPageEdge>({
+			edges: data?.allWpPage.edges,
+			prePath: 'page',
+			template: 'page.template.tsx'
 		});
+		
+		this.createFromEdge<WpCategoryEdge>({
+			edges: data?.allWpCategory.edges,
+			prePath: 'category',
+			template: 'category.template.tsx'
+		})
+		
+		this.createFromEdge<WpTagEdge>({
+			edges: data?.allWpTag.edges,
+			prePath: 'tag',
+			template: 'tag.template.tsx'
+		})
 	}
 }
