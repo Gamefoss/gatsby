@@ -55,7 +55,7 @@ export class PodcastCreator extends Creator {
 		
 		podcastData?.allPodcastRssFeedEpisode?.nodes?.forEach((node) => {
 			const {item, id} = node as { item: PodcastRssFeedEpisode, id: string };
-			const slug = slugify(item!.title as string, SLUGIFY_OPTIONS);
+			const slug = slugify(item!.title, SLUGIFY_OPTIONS);
 			actions.createPage({
 				path: `/podcast/${slug}`,
 				component: path.resolve(`./src/templates/podcast.template.tsx`),

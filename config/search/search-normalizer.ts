@@ -51,11 +51,13 @@ export class SearchNormalizer implements ISearchNormalizer {
 	 */
 	public normalize<T extends { node: { id: string } }>(edges: Readonly<T[]>): SearchResult[] {
 		return edges.map(({node}: PossibleSearchItem) => {
+			
+			const slug = node.slug || node.item?.link || "";
+			
 			return {
 				id: node.id,
 				title: (node.title || node.name || node.item?.title) as string,
-				// TODO: add proper link transform for podcast
-				slug: this.createSlug((node.slug || node.item?.link) as string),
+				slug,
 				body: (node.content || node.item?.contentSnippet) as string
 			};
 		})

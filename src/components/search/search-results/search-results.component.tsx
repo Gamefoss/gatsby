@@ -1,4 +1,4 @@
-import React, {FunctionComponent, Provider, useContext} from "react";
+import React, {FunctionComponent, useContext} from "react";
 import {useFlexSearch} from "react-use-flexsearch";
 import {graphql, useStaticQuery} from "gatsby";
 
@@ -62,8 +62,7 @@ const SearchResults: FunctionComponent = () => {
 							{results.map((result: any) => (
 								<li key={result.id}>
 									<a
-										href={result.url || `/${result.slug}`}
-										target={result.url ? "_blank" : "_self"}
+										href={`/${result.slug}`}
 									>{result.title}</a>
 								</li>
 							))}
