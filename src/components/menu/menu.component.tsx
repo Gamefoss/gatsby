@@ -39,6 +39,9 @@ const transformPath = (path: string): string => {
 	if (path.startsWith('/cms/blog/')) {
 		return path.replace('/cms/blog/', '/artigo/');
 	}
+	if (path.startsWith('/cms/categorias/')) {
+		return path.replace('/cms/categorias/', '/categoria/');
+	}
 	if (path.startsWith('/cms/')) {
 		return path.replace('/cms/', '/pagina/');
 	}

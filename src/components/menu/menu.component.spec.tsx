@@ -15,7 +15,7 @@ describe('Menu', () => {
 						menuItems: {
 							nodes: [
 								{ id: '1', label: 'Home', path: '/cms/', parentId: null },
-								{ id: '2', label: 'Blog', path: '/cms/blog/', parentId: null },
+								{ id: '2', label: 'Blog', path: '/cms/categorias/blog/', parentId: null },
 								{ id: '3', label: 'Post 1', path: '/cms/blog/post-1', parentId: '2' },
 								{ id: '4', label: 'Page 1', path: '/cms/page-1', parentId: null },
 								{ id: '5', label: 'External Page', path: 'https://dihgg.com/', parentId: null },
@@ -31,7 +31,7 @@ describe('Menu', () => {
 		const { getByText } = render(<Menu location="main-menu" />);
 		
 		expect(getByText('Home').closest('a')).toHaveAttribute('href', '/pagina/');
-		expect(getByText('Blog').closest('a')).toHaveAttribute('href', '/artigo/');
+		expect(getByText('Blog').closest('a')).toHaveAttribute('href', '/categoria/blog/');
 		expect(getByText('Post 1').closest('a')).toHaveAttribute('href', '/artigo/post-1');
 		expect(getByText('Page 1').closest('a')).toHaveAttribute('href', '/pagina/page-1');
 	});
