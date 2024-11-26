@@ -13,9 +13,9 @@ describe("SearchNormalizer", () => {
 		];
 		expect(normalizer.normalize(mockedItems))
 			.toEqual([
-				{id: "1", title: "title", slug: "article/slug", body: "body", type: "Post"},
-				{id: "2", title: "title", slug: "page/slug", body: "body", type: "Page"},
-				{id: "3", title: "title", slug: "category/slug", body: "body", type: "Category"},
+				{id: "1", title: "title", slug: "artigo/slug", body: "body", type: "Post"},
+				{id: "2", title: "title", slug: "pagina/slug", body: "body", type: "Page"},
+				{id: "3", title: "title", slug: "categoria/slug", body: "body", type: "Category"},
 				{id: "4", title: "title", slug: "tag/slug", body: "body", type: "Tag"},
 				{id: "5", title: "title", slug: "slug", body: "body", type: "Unknown"},
 				{id: "6", title: "Podcast Example", slug: "podcast/podcast-example", body: "body", type: "Podcast"},

@@ -37,10 +37,10 @@ const buildMenuTree = (items: Queries.WpMenuItem[], parentId: string | null = nu
  */
 const transformPath = (path: string): string => {
 	if (path.startsWith('/cms/blog/')) {
-		return path.replace('/cms/blog/', '/article/');
+		return path.replace('/cms/blog/', '/artigo/');
 	}
 	if (path.startsWith('/cms/')) {
-		return path.replace('/cms/', '/page/');
+		return path.replace('/cms/', '/pagina/');
 	}
 	return path;
 };

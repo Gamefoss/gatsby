@@ -11,11 +11,11 @@ const transform = ({type, slug, title}: SearchResult) => {
 		case "Podcast":
 			return `podcast/${slugify(title, SLUGIFY_OPTIONS)}`;
 		case "Post":
-			return `article/${slug}`;
+			return `artigo/${slug}`;
 		case "Page":
-			return `page/${slug}`;
+			return `pagina/${slug}`;
 		case "Category":
-			return `category/${slug}`;
+			return `categoria/${slug}`;
 		case "Tag":
 			return `tag/${slug}`;
 		default:

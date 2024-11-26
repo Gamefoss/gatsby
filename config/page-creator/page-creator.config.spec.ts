@@ -92,32 +92,32 @@ describe('WordPressCreator', () => {
 		await creator.create();
 		
 		expect(actions.createPage).toHaveBeenCalledWith({
-			path: '/article/post-1',
+			path: '/artigo/post-1',
 			component: expect.any(String),
 			context: {id: '1'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
-			path: '/article/post-2',
+			path: '/artigo/post-2',
 			component: expect.any(String),
 			context: {id: '2'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
-			path: '/page/page-1',
+			path: '/pagina/page-1',
 			component: expect.any(String),
 			context: {id: '1'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
-			path: '/page/page-2',
+			path: '/pagina/page-2',
 			component: expect.any(String),
 			context: {id: '2'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
-			path: '/category/category-1',
+			path: '/categoria/category-1',
 			component: expect.any(String),
 			context: {id: '1'},
 		});
 		expect(actions.createPage).toHaveBeenCalledWith({
-			path: '/category/category-2',
+			path: '/categoria/category-2',
 			component: expect.any(String),
 			context: {id: '2'},
 		});

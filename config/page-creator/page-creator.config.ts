@@ -133,19 +133,19 @@ export class WordPressCreator extends Creator {
 		
 		this.createFromEdge<Queries.WpPostEdge>({
 			edges: data?.allWpPost.edges,
-			prePath: 'article',
+			prePath: 'artigo',
 			template: 'article.template.tsx'
 		});
 		
 		this.createFromEdge<Queries.WpPageEdge>({
 			edges: data?.allWpPage.edges,
-			prePath: 'page',
+			prePath: 'pagina',
 			template: 'page.template.tsx'
 		});
 		
 		this.createFromEdge<Queries.WpCategoryEdge>({
 			edges: data?.allWpCategory.edges,
-			prePath: 'category',
+			prePath: 'categoria',
 			template: 'category.template.tsx'
 		})
 		

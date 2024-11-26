@@ -30,10 +30,10 @@ describe('Menu', () => {
 	it('renders menu items with transformed paths', () => {
 		const { getByText } = render(<Menu location="main-menu" />);
 		
-		expect(getByText('Home').closest('a')).toHaveAttribute('href', '/page/');
-		expect(getByText('Blog').closest('a')).toHaveAttribute('href', '/article/');
-		expect(getByText('Post 1').closest('a')).toHaveAttribute('href', '/article/post-1');
-		expect(getByText('Page 1').closest('a')).toHaveAttribute('href', '/page/page-1');
+		expect(getByText('Home').closest('a')).toHaveAttribute('href', '/pagina/');
+		expect(getByText('Blog').closest('a')).toHaveAttribute('href', '/artigo/');
+		expect(getByText('Post 1').closest('a')).toHaveAttribute('href', '/artigo/post-1');
+		expect(getByText('Page 1').closest('a')).toHaveAttribute('href', '/pagina/page-1');
 	});
 	
 	it('renders nested menu items correctly', () => {
