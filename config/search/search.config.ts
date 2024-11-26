@@ -92,7 +92,7 @@ export const SearchConfig = {
 		// List of keys to store and make available in your UI. The values of
 		// the keys are taken from the normalizer function below.
 		// Default: all fields
-		store: ['id', 'slug', 'title', 'url', 'body'],
+		store: ['id', 'slug', 'title', 'url', 'body', 'type'],
 		
 		// Function used to map the result from the GraphQL query. This should
 		// return an array of items to index in the form of flat objects

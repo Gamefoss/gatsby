@@ -6,7 +6,7 @@ import {graphql, useStaticQuery} from "gatsby";
 /**
  * @description This Context is used to provide search results to the children components.
  */
-const SearchContext = React.createContext<{results: any[]}>({results: []});
+const SearchContext = React.createContext<{results: SearchResult[]}>({results: []});
 
 /**
  * @description This Provider is used to provide search results to the children components.
@@ -25,7 +25,7 @@ const SearchProvider: FunctionComponent<{ query: string, children?: React.ReactN
 	const index = data!.localSearchPages!.index;
 	const store = data!.localSearchPages!.store;
 	
-	const results = useFlexSearch(query, index, store);
+	const results = useFlexSearch<SearchResult>(query, index, store);
 	
 	return (
 		<SearchContext.Provider value={{results}}>
@@ -59,8 +59,10 @@ const SearchResults: FunctionComponent = () => {
 						<ul
 							data-testid="search-results-component"
 						>
-							{results.map((result: any) => (
+							{results.map((result) => (
 								<li key={result.id}>
+									<span>{result.type}</span>
+									<br />
 									<a
 										href={`/${result.slug}`}
 									>{result.title}</a>

@@ -18,5 +18,5 @@ declare module "*.svg" {
  * Declare react-use-flexsearch module as this module does not have types
  */
 declare module "react-use-flexsearch" {
-	export function useFlexSearch(query: string, index: any, store: any): any[];
+	export function useFlexSearch<T>(query: string, index: any, store: any): T[];
 }
