@@ -30,3 +30,6 @@ export const SLUGIFY_OPTIONS = {
 	lower: true,
 	remove: /[*+~.,()'"!:@]/g
 };
+
+// TODO: Change it to 10
+export const POSTS_PER_PAGE = 1;
