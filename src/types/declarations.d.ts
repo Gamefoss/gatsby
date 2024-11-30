@@ -20,3 +20,5 @@ declare module "*.svg" {
 declare module "react-use-flexsearch" {
 	export function useFlexSearch<T>(query: string, index: any, store: any): T[];
 }
+
+type PostType = 'Podcast' | 'Post' | 'Page' | 'Category' | 'Tag' | undefined;

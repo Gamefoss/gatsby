@@ -32,7 +32,7 @@ export class SearchNormalizer implements ISearchNormalizer {
 		return edges.map(({node}: PossibleSearchItem) => ({
 			id: node.id,
 			title: (node.title || node.name || node.item?.title) as string,
-			slug: (node.slug || node.item?.link) as string,
+			slug: node?.slug as string,
 			body: (node.content || node.description || node.item?.contentSnippet) as string,
 			type: (node.item) ? 'Podcast' : node.nodeType
 		}));

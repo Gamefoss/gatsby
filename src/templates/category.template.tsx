@@ -1,24 +1,34 @@
 import {BaseLayout} from "@layouts";
 import {graphql, HeadFC, PageProps} from "gatsby";
-import React, {FunctionComponent, useEffect, useState} from "react";
-import {Post} from "@components";
-import {POSTS_PER_PAGE} from "@constants";
+import React, {FunctionComponent} from "react";
+import {Listing} from "@components";
 
 const CategoryTemplate: FunctionComponent<PageProps<{ wpCategory: Queries.WpCategory }>> = ({data}) => {
-	const {name, posts, count} = data.wpCategory;
-	const total = posts?.nodes.length || 0;
-	const [loadedNumber, setLoadedNumber] = useState(POSTS_PER_PAGE);
-	const [loadedPosts, setPosts] = useState<Queries.WpPost[] | undefined>([]);
+	const {name, posts} = data.wpCategory;
 	
-	
-	useEffect(() => {
-		setPosts(
-			data.wpCategory.posts?.nodes.slice(0, loadedNumber) as Queries.WpPost[]
-		);
-	}, [loadedNumber]);
-	
-	const loadMore = () => {
-		setLoadedNumber(loadedNumber + POSTS_PER_PAGE);
+	const transformPosts = (posts: Queries.WpPost[]): PostProps[] => {
+		return posts.map((post) => {
+			const {
+				id,
+				title,
+				slug,
+				excerpt,
+				featuredImage,
+				nodeType
+			} = post;
+			const image = featuredImage ? {
+				sourceUrl: featuredImage.node.sourceUrl as string,
+				altText: featuredImage.node.altText as string
+			} : undefined;
+			return {
+				id,
+				title,
+				slug,
+				excerpt,
+				type: nodeType as PostType,
+				featuredImage: image,
+			} as PostProps;
+		});
 	}
 	
 	return (
@@ -26,32 +36,7 @@ const CategoryTemplate: FunctionComponent<PageProps<{ wpCategory: Queries.WpCate
 			<div data-testid="category-template">
 				<h1>This will be the Category: {name}</h1>
 				<pre>{JSON.stringify(data, null, 2)}</pre>
-				<ul>
-					{
-						loadedPosts?.map((post: Queries.WpPost) => {
-							const {
-								id,
-								...othersProps
-							} = post;
-							return (
-								<li key={id}>
-									<Post
-										id={id}
-										{...othersProps}
-									/>
-								</li>
-							);
-						})
-					}
-				</ul>
-				{total > loadedNumber &&
-            <button
-		            data-testid="category-template__load-more"
-                onClick={loadMore}
-            >
-                Load More
-            </button>
-				}
+				<Listing posts={transformPosts(posts?.nodes as Queries.WpPost[])} />
 			</div>
 		</BaseLayout>
 	);
@@ -67,6 +52,7 @@ export const query = graphql`
 	        title
 	        slug
 	        excerpt
+	        nodeType
 	        featuredImage {
 	          node {
 	            altText
