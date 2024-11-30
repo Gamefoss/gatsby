@@ -4,17 +4,18 @@ import {clsx} from "clsx";
 import "./badge.component.css";
 
 type BadgeProps = {
-	name?: string;
+	name: string;
+	type?: PostType
 };
 
 export const Badge: FunctionComponent<BadgeProps> = (props) => {
-	const {name} = props;
+	const {name, type} = props;
 	return (
 		<span
 			data-testid="badge-component"
 			className={clsx(
 				"badge-component",
-				`badge-component--${name?.toLowerCase()}`
+				`badge-component--${type?.toLowerCase()}`
 			)}
 		>
 			{name}

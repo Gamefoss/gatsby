@@ -8,4 +8,17 @@
     px-2
     py-1
     ;
+    &.badge-component__post,
+    &.badge-component__category,
+    &.badge-component__tag
+    {
+        @apply
+        bg-post
+        ;
+    }
+    &.badge-component__podcast {
+        @apply
+        bg-podcast
+        ;
+    }
 }

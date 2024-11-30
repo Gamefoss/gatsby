@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Link} from "gatsby";
+import {Link, navigate} from "gatsby";
 import {Author, Badge} from "@components";
 
 import "./post.component.css";
@@ -31,7 +31,8 @@ export const Post: FunctionComponent<PostProps> = (props) => {
 		title,
 		excerpt,
 		type,
-		author
+		author,
+		categories
 	} = props;
 	return (
 		<article
@@ -41,7 +42,24 @@ export const Post: FunctionComponent<PostProps> = (props) => {
 			<Link to={`/artigo/${slug}`}>
 				<Image featuredImage={featuredImage} />
 				<div className="post-component__content-wrapper">
-					<Badge name={type} />
+					<div className="post-component__badge-container">
+						{
+							categories && categories.slice(0,4).map(({name, slug}) => (
+								<button
+									key={slug}
+									onClick={(e) => {
+										e.preventDefault();
+										// TODO: Remove this once the navigate typings are fixed on gatsby link - https://github.com/gatsbyjs/gatsby/issues/39158
+										// @ts-ignore
+										navigate(`/categoria/${slug}`)
+									}}
+								>
+									<Badge name={name} type={type} />
+								</button>
+							))
+						}
+						
+					</div>
 					<div className="post-component__content">
 						<h2>{title}</h2>
 						<div

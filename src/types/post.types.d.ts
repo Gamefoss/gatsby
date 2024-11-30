@@ -8,6 +8,11 @@ type AuthorProps = {
 	name: string,
 };
 
+type CategoryProps = {
+	name: string,
+	slug: string,
+}
+
 type PostProps = {
 	id: string,
 	slug: string,
@@ -15,5 +20,6 @@ type PostProps = {
 	excerpt: string,
 	type: PostType,
 	author: AuthorProps,
+	categories?: CategoryProps[],
 	featuredImage?: ImageProps
 };

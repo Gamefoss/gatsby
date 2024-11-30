@@ -7,3 +7,4 @@ export * from "./listing/listing.component";
 export * from "./post/post.component";
 export * from "./post/author/author.component";
 export * from "./post/badge/badge.component";
+export * from "./button/button.component";

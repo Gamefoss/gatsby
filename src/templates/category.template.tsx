@@ -2,47 +2,21 @@ import {BaseLayout} from "@layouts";
 import {graphql, HeadFC, PageProps} from "gatsby";
 import React, {FunctionComponent} from "react";
 import {Listing} from "@components";
+import {PostNormalizer} from "@normalizers";
 
 const CategoryTemplate: FunctionComponent<PageProps<{ wpCategory: Queries.WpCategory }>> = ({data}) => {
 	const {name, posts} = data.wpCategory;
 	
-	const transformPosts = (posts: Queries.WpPost[]): PostProps[] => {
-		return posts.map((post) => {
-			const {
-				id,
-				title,
-				slug,
-				excerpt,
-				featuredImage,
-				nodeType,
-				author
-			} = post;
-			const image: ImageProps | undefined = featuredImage ? {
-				sourceUrl: featuredImage.node.sourceUrl as string,
-				altText: featuredImage.node.altText as string
-			} : undefined;
-			const authorData: AuthorProps = {
-				name: author?.node.name as string,
-				avatarUrl: author?.node.avatar?.url as string
-			};
-			return {
-				id,
-				title,
-				slug,
-				excerpt,
-				type: nodeType as PostType,
-				featuredImage: image,
-				author: authorData
-			} as PostProps;
-		});
-	}
+	const normalizedPosts = new PostNormalizer().normalize(posts?.nodes as Queries.WpPost[]);
 	
 	return (
 		<BaseLayout>
 			<div data-testid="category-template">
-				<h1>This will be the Category: {name}</h1>
+				<Listing
+					name={name as string}
+					posts={normalizedPosts}
+				/>
 				<pre>{JSON.stringify(data, null, 2)}</pre>
-				<Listing posts={transformPosts(posts?.nodes as Queries.WpPost[])} />
 			</div>
 		</BaseLayout>
 	);
@@ -71,6 +45,12 @@ export const query = graphql`
 			        avatar {
 			          url
 			        }
+			      }
+			    }
+			    categories {
+			      nodes {
+			        name
+			        slug
 			      }
 			    }
 	      }

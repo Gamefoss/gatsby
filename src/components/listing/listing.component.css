@@ -1,14 +1,76 @@
 .listing-component {
     @apply
-    md:grid
-    md:grid-cols-2
-    lg:grid-cols-3
-    md:gap-4
+    flex
+    flex-col
+    items-center
+    justify-between
     ;
-    li {
+
+    ul {
+        @apply
+        w-full
+        my-4
+        sm:grid
+        sm:grid-cols-2
+        lg:grid-cols-3
+        sm:gap-4
+        ;
+        li {
+            @apply
+            mb-4
+            md:mb-0
+            ;
+        }
+    }
+
+    .listing-component__load-more {
         @apply
         mb-4
-        md:mb-0
+        ;
+    }
+}
+
+.listing-component__header {
+    @apply
+    w-full
+    flex
+    items-center
+    justify-between
+    mb-4
+    py-12
+    lg:py-24
+    text-white
+    relative
+    overflow-hidden
+    bg-black
+    ;
+
+    .listing-component__header__image {
+        @apply
+        absolute
+        bg-cover
+        bg-center
+        w-full
+        h-full
+        top-0
+        left-0
+        blur
+        opacity-50
+        ;
+    }
+
+    .listing-component__header__content {
+        @apply
+        relative
+        ;
+    }
+
+    h1 {
+        @apply
+        text-4xl
+        md:text-6xl
+        font-bold
+        text-center
         ;
     }
 }

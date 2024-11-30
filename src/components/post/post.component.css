@@ -5,12 +5,17 @@
     delay-200
     hover:scale-105
     ;
-    .badge-component {
+    .post-component__badge-container {
         @apply
         absolute
         -top-4
         left-4
         ;
+        a, button {
+            @apply
+            mr-2
+            ;
+        }
     }
     .post-component__image {
         @apply

@@ -23,7 +23,6 @@ const BaseLayout: FunctionComponent<{ children: ReactNode }> = ({children}) => {
 			]}/>
 			<main
 				data-testid="main-content"
-				className="site-wrapper"
 			>
 				{children}
 			</main>

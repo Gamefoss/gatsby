@@ -9,7 +9,8 @@
 
 main {
     @apply
-    pt-14
+    pt-10
+    md:pt-14
     w-full
     mx-auto
     mb-auto

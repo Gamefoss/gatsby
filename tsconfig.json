@@ -11,7 +11,8 @@
       "@components": ["./src/components/index"],
       "@layouts": ["./src/layouts/index"],
       "@constants": ["./src/constants"],
-      "@mocks/*": ["./__mocks__/*"]
+      "@mocks/*": ["./__mocks__/*"],
+      "@normalizers": ["./src/normalizers/index"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

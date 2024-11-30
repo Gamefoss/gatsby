@@ -1,11 +1,50 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 import {POSTS_PER_PAGE} from "@constants";
-import {Post} from "@components";
+import {Post, Button} from "@components";
 
 import "./listing.component.css";
 
-const Listing: FunctionComponent<{ posts: PostProps[] }> = ({posts}) => {
+export type ListingProps = {
+	name: string;
+	posts: PostProps[];
+};
+
+const ListingHeader: FunctionComponent<ListingProps> = (props) => {
+	const {
+		name,
+		posts
+	} = props;
 	
+	const imagesURLs= posts
+		.filter(({featuredImage}) => featuredImage)
+		.map(({featuredImage}) => (featuredImage!.sourceUrl));
+	
+	const randomImage = imagesURLs[Math.floor(Math.random() * imagesURLs.length)];
+	return (
+		<div
+			className="listing-component__header"
+		>
+			<div
+				style={{
+					backgroundImage: `url(${randomImage})`
+				}}
+					data-testid="listing-component__header__image"
+				className="listing-component__header__image"
+				aria-hidden
+			/>
+			<div
+				className="site-wrapper listing-component__header__content"
+			>
+				<h1>{name}</h1>
+			</div>
+		</div>
+	);
+};
+
+const Listing: FunctionComponent<ListingProps> = (props) => {
+	const {
+		posts
+	} = props;
 	const total = posts.length;
 	const [loadedNumber, setLoadedNumber] = useState(POSTS_PER_PAGE);
 	const [loadedPosts, setPosts] = useState<PostProps[]>([]);
@@ -23,8 +62,7 @@ const Listing: FunctionComponent<{ posts: PostProps[] }> = ({posts}) => {
 	
 	const List = () => (
 		<ul
-			data-testid="listing-component"
-			className="listing-component"
+			className="listing-component__list"
 		>{loadedPosts.map((post) => {
 			const {
 				id
@@ -40,12 +78,13 @@ const Listing: FunctionComponent<{ posts: PostProps[] }> = ({posts}) => {
 	const LoadMore = () => (
 		<>
 			{total > loadedNumber &&
-          <button
-              data-testid="listing-component__load-more"
-              onClick={loadMore}
-          >
-              Load More
-          </button>
+					<Button
+            data-testid="listing-component__load-more"
+						onClick={loadMore}
+						className="listing-component__load-more"
+					>
+							Carregar Mais...
+					</Button>
 			}
 		</>
 	);
@@ -63,10 +102,16 @@ const Listing: FunctionComponent<{ posts: PostProps[] }> = ({posts}) => {
 	}
 	
 	return (
-		<>
-			<List/>
+		<div
+			data-testid="listing-component"
+			className="listing-component"
+		>
+			<ListingHeader {...props} />
+			<div className="site-wrapper">
+				<List/>
+			</div>
 			<LoadMore/>
-		</>
+		</div>
 	);
 }
 

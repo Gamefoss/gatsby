@@ -1,6 +1,6 @@
 import React from "react";
 import {fireEvent, render} from "@testing-library/react";
-import {Listing} from "@components";
+import {Listing, ListingProps} from "@components";
 import {mock} from "jest-mock-extended";
 
 jest.mock("@constants", () => ({
@@ -9,25 +9,34 @@ jest.mock("@constants", () => ({
 
 jest.mock("@components", () => ({
 	...jest.requireActual("@components"),
-	Post: (props: any) => <div id={props.id}>{props.title}</div>
+	Post: (props: any) => <div id={props.id}>{props.title}</div>,
+	Button: (props: any) => <button {...props}>{props.children}</button>
 }));
 
 describe("Listing Component", () => {
-	const renderTestComponent = (posts: PostProps[] = [
-		{
-			...mock(),
-			id: "1",
-			title: "Post 1",
-		},
-		{
-			...mock(),
-			id: "2",
-			title: "Post 2",
+	const renderTestComponent = (inputProps?: Partial<ListingProps>) => {
+		
+		const defaultProps: ListingProps = {
+			name: "Mocked Listing",
+			posts: [
+				{
+					...mock(),
+					id: "1",
+					title: "Post 1",
+				},
+				{
+					...mock(),
+					id: "2",
+					title: "Post 2",
+				}
+			]
 		}
-	]) => {
+		
+		const props = {...defaultProps, ...inputProps}
+		
 		return render(
 			<Listing
-				posts={posts}
+				{...props}
 			/>
 		);
 	};
@@ -48,8 +57,26 @@ describe("Listing Component", () => {
 	});
 	
 	it("Should render no posts message", () => {
-		const {getByTestId} = renderTestComponent([]);
+		const {getByTestId} = renderTestComponent({posts: []});
 		expect(getByTestId("listing-component__no-posts")).toBeInTheDocument();
+	});
+	
+	it("Should render background image from one of the post images", () => {
+		const {getByTestId} = renderTestComponent({posts: [
+				{
+					...mock(),
+					id: "1",
+					title: "Post 1",
+					featuredImage: {
+						sourceUrl: "image.png",
+						altText: "Mocked Image"
+					}
+				}
+			]});
+		expect(getByTestId("listing-component__header__image")).toBeInTheDocument();
+		expect(getByTestId("listing-component__header__image")).toHaveStyle({
+			backgroundImage: "url(image.png)"
+		})
 	});
 	
 });

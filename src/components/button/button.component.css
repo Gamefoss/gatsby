@@ -1,0 +1,16 @@
+.btn {
+    @apply
+    px-4
+    py-2
+    transition-transform
+    ease-in-out
+    delay-200
+    hover:scale-105
+    ;
+    &.btn--primary {
+        @apply
+        bg-blue-500
+        text-white
+        ;
+    }
+}

@@ -8,6 +8,12 @@ import {Head} from "./category.template";
 import {HeadProps} from "gatsby";
 
 
+jest.mock("@normalizers", () => ({
+	PostNormalizer: jest.fn().mockImplementation(() => ({
+		normalize: (posts: Queries.WpPost[]) => posts
+	}))
+}));
+
 jest.mock("@components", () => ({
 	Listing: (props: { posts: PostProps[] }) => (
 		<ul>
@@ -27,28 +33,18 @@ jest.mock("@components", () => ({
 	)
 }));
 
-type ComponentProps = {
+const renderTestComponent = (inputProps?: Partial<{
 	name: string,
-	posts: {
-		id: string,
-		title: string,
-		featuredImage?: {
-			node: {
-				sourceUrl: string,
-				altText: string
-			}
-		}
-	}[]
-};
-const renderTestComponent = (inputProps?: Partial<ComponentProps>) => {
-	const defaultValues: ComponentProps = {
+	posts: Queries.WpPost[]
+}>) => {
+	const defaultValues = {
 		name: "Category Name",
 		posts: [
 			{id: "1", title: "Post 1"},
 			{id: "2", title: "Post 2"},
 			{id: "3", title: "Post 3"}
 		]
-	};
+	} as unknown as Queries.WpCategory;
 	const props = {...defaultValues, ...inputProps};
 	const {name, posts} = props;
 	return render(
@@ -87,16 +83,15 @@ describe("CategoryTemplate", () => {
 					title: "Post 1",
 					featuredImage: {
 						node: {
-							sourceUrl: "http://source.url",
-							altText: "Alt Text"
+							sourceUrl: "mocked-image.png",
+							altText: "Mocked Image"
 						}
 					}
 				}
-			]
+			] as Queries.WpPost[]
 		});
 		expect(getByTestId("mocked-image")).toBeInTheDocument();
-	})
-	;
+	});
 	
 	it("Should render without posts gracefully", () => {
 		const {queryByText} = renderTestComponent({ posts: []});
