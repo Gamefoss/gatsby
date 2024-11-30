@@ -2,7 +2,7 @@ import type {PodcastRssFeedEpisode, PodcastRssFeedEpisodeData} from "gatsby-sour
 import slugify from "slugify";
 import path from "node:path";
 import {CreatePageArgs} from "gatsby";
-import {SLUGIFY_OPTIONS} from "../../src/constants";
+import {SLUGIFY_OPTIONS} from "@constants";
 
 type GraphqlType = <T>(query: string) => Promise<{ errors?: any, data?: T | undefined }>;
 
@@ -128,6 +128,14 @@ export class WordPressCreator extends Creator {
 			      }
 			    }
 			  }
+			  allWpUser {
+			    edges {
+			      node {
+			        id
+			        slug
+			      }
+			    }
+			  }
 			}
     `);
 		
@@ -147,12 +155,18 @@ export class WordPressCreator extends Creator {
 			edges: data?.allWpCategory.edges,
 			prePath: 'categoria',
 			template: 'category.template.tsx'
-		})
+		});
 		
 		this.createFromEdge<Queries.WpTagEdge>({
 			edges: data?.allWpTag.edges,
 			prePath: 'tag',
 			template: 'tag.template.tsx'
+		});
+		
+		this.createFromEdge<Queries.WpUserEdge>({
+			edges: data?.allWpUser.edges,
+			prePath: 'autor',
+			template: 'author.template.tsx'
 		})
 	}
 }
