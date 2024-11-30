@@ -1,0 +1,11 @@
+.badge-component {
+    @apply
+    inline-block
+    bg-red-600
+    text-white
+    font-bold
+    text-xs
+    px-2
+    py-1
+    ;
+}

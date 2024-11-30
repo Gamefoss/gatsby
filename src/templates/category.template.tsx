@@ -14,12 +14,17 @@ const CategoryTemplate: FunctionComponent<PageProps<{ wpCategory: Queries.WpCate
 				slug,
 				excerpt,
 				featuredImage,
-				nodeType
+				nodeType,
+				author
 			} = post;
-			const image = featuredImage ? {
+			const image: ImageProps | undefined = featuredImage ? {
 				sourceUrl: featuredImage.node.sourceUrl as string,
 				altText: featuredImage.node.altText as string
 			} : undefined;
+			const authorData: AuthorProps = {
+				name: author?.node.name as string,
+				avatarUrl: author?.node.avatar?.url as string
+			};
 			return {
 				id,
 				title,
@@ -27,6 +32,7 @@ const CategoryTemplate: FunctionComponent<PageProps<{ wpCategory: Queries.WpCate
 				excerpt,
 				type: nodeType as PostType,
 				featuredImage: image,
+				author: authorData
 			} as PostProps;
 		});
 	}
@@ -59,6 +65,14 @@ export const query = graphql`
 	            sourceUrl
 	          }
 	        }
+	        author {
+			      node {
+			        name
+			        avatar {
+			          url
+			        }
+			      }
+			    }
 	      }
 	    }
 	  }

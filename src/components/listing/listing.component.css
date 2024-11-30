@@ -1,0 +1,14 @@
+.listing-component {
+    @apply
+    md:grid
+    md:grid-cols-2
+    lg:grid-cols-3
+    md:gap-4
+    ;
+    li {
+        @apply
+        mb-4
+        md:mb-0
+        ;
+    }
+}

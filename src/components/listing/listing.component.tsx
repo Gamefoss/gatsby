@@ -1,6 +1,8 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 import {POSTS_PER_PAGE} from "@constants";
-import {Post} from "../post/post.component";
+import {Post} from "@components";
+
+import "./listing.component.css";
 
 const Listing: FunctionComponent<{ posts: PostProps[] }> = ({posts}) => {
 	

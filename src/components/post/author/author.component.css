@@ -1,0 +1,18 @@
+.author-component {
+    @apply
+    mt-auto
+    text-sm
+    text-gray-500
+    flex
+    items-center
+    ;
+
+    img {
+        @apply
+        w-8
+        h-8
+        rounded-full
+        mr-2
+        ;
+    }
+}

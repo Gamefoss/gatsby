@@ -3,5 +3,7 @@ export * from './footer/footer.component';
 export * from "./socials/socials.component";
 export * from "./search";
 export * from "./menu/menu.component";
-export * from "./post/post.component";
 export * from "./listing/listing.component";
+export * from "./post/post.component";
+export * from "./post/author/author.component";
+export * from "./post/badge/badge.component";

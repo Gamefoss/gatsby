@@ -1,0 +1,68 @@
+.post-component {
+    @apply
+    transition-transform
+    ease-in-out
+    delay-200
+    hover:scale-105
+    ;
+    .badge-component {
+        @apply
+        absolute
+        -top-4
+        left-4
+        ;
+    }
+    .post-component__image {
+        @apply
+        w-full
+        h-64
+        bg-gray-500
+        md:h-64
+        ;
+        img {
+            @apply
+            w-full
+            h-full
+            object-cover
+            ;
+        }
+    }
+    .post-component__content-wrapper {
+        @apply
+        relative
+        bg-white
+        h-48
+        ;
+
+    }
+    .post-component__content {
+        @apply
+        bg-white
+        px-4
+        py-5
+        h-full
+        flex
+        flex-col
+        justify-start
+        ;
+
+        h2 {
+            @apply
+            text-2xl
+            font-bold
+            ;
+        }
+
+    }
+
+    .post-component__excerpt {
+        @apply
+        overflow-hidden
+        text-ellipsis
+        my-2
+        ;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+}

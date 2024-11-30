@@ -1,14 +1,26 @@
-import React from "react";
-import {FunctionComponent} from "react";
+import React, {FunctionComponent} from "react";
 import {Link} from "gatsby";
+import {Author, Badge} from "@components";
 
-const Image: FunctionComponent<ImageProps> = (props) => {
-	const {sourceUrl, altText} = props;
+import "./post.component.css";
+
+const Image: FunctionComponent<Pick<PostProps, 'featuredImage'>> = (props) => {
+
+	const {featuredImage} = props
+	
 	return (
-		<img
-			src={sourceUrl}
-			alt={altText}
-		/>
+		<div
+			className="post-component__image"
+		>
+			{
+				featuredImage && (
+					<img
+						src={featuredImage.sourceUrl}
+						alt={featuredImage.altText}
+					/>
+				)
+			}
+		</div>
 	);
 }
 
@@ -18,15 +30,27 @@ export const Post: FunctionComponent<PostProps> = (props) => {
 		featuredImage,
 		title,
 		excerpt,
-		type
+		type,
+		author
 	} = props;
 	return (
-		<article data-testid="post-component">
+		<article
+			data-testid="post-component"
+			className="post-component"
+		>
 			<Link to={`/artigo/${slug}`}>
-				<span>Type is: {type}</span>
-				{featuredImage && <Image {...featuredImage} />}
-				<h2>{title}</h2>
-				<div dangerouslySetInnerHTML={{__html: excerpt}}/>
+				<Image featuredImage={featuredImage} />
+				<div className="post-component__content-wrapper">
+					<Badge name={type} />
+					<div className="post-component__content">
+						<h2>{title}</h2>
+						<div
+							className={"post-component__excerpt"}
+							dangerouslySetInnerHTML={{__html: excerpt}}
+						/>
+						<Author {...author} />
+					</div>
+				</div>
 			</Link>
 		</article>
 	);
