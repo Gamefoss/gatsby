@@ -3,11 +3,6 @@ import {fireEvent, render} from "@testing-library/react";
 import {Post} from "@components";
 import {navigate} from "gatsby";
 
-jest.mock("gatsby", () => ({
-	...jest.requireActual("gatsby"),
-	navigate: jest.fn(),
-}));
-
 const renderTestComponent = (inputProps?: Partial<PostProps>) => {
 	
 	const defaultProps: PostProps = {

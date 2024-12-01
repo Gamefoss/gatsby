@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from "react";
+import {navigate} from "gatsby";
+
 import "./author.component.css";
-import {Link} from "gatsby";
 
 export const Author: FunctionComponent<AuthorProps> = (props) => {
 	const {
@@ -9,12 +10,18 @@ export const Author: FunctionComponent<AuthorProps> = (props) => {
 		avatarUrl
 	} = props;
 	return (
-		<Link
-			to={`/autor/${slug}`}
+		<button
+			data-testid="author-component"
+			onClick={(e) => {
+				e.preventDefault();
+				// TODO: Remove this once the navigate typings are fixed on gatsby link - https://github.com/gatsbyjs/gatsby/issues/39158
+				// @ts-ignore
+				navigate(`/autor/${slug}`);
+			}}
 			className="author-component"
 		>
 			<img src={avatarUrl} alt={name}/>
 			<span>{name}</span>
-		</Link>
+		</button>
 	);
 }

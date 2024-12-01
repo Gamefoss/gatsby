@@ -6,11 +6,6 @@ import {render, fireEvent} from "@testing-library/react";
 import {SearchHeader} from "@components";
 import {navigate} from "gatsby";
 
-jest.mock("gatsby", () => ({
-	...jest.requireActual("gatsby"),
-	navigate: jest.fn(),
-}));
-
 describe("SearchHeader", () => {
 	
 	afterEach(() => {
