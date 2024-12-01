@@ -67,7 +67,7 @@ export class PodcastCreator extends Creator {
 }
 
 /**
- * Query WordPress API to get Posts and Pages
+ * Query WordPress API to get Content
  */
 export class WordPressCreator extends Creator {
 	
