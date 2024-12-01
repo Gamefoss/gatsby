@@ -42,6 +42,7 @@ export const query = graphql`
 	        author {
 			      node {
 			        name
+			        slug
 			        avatar {
 			          url
 			        }

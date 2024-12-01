@@ -1,6 +1,6 @@
-import { BaseLayout } from "@layouts";
-import { graphql, HeadFC, PageProps } from "gatsby";
 import React, { FunctionComponent } from "react";
+import { graphql, HeadFC, PageProps } from "gatsby";
+import { BaseLayout } from "@layouts";
 
 type AuthorProps = {wpUser: Queries.WpUser};
 const AuthorTemplate: FunctionComponent<PageProps<AuthorProps>> = ({data}) => {

@@ -5,6 +5,7 @@ type ImageProps = {
 
 type AuthorProps = {
 	avatarUrl: string,
+	slug: string,
 	name: string,
 };
 

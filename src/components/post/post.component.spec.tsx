@@ -22,6 +22,7 @@ const renderTestComponent = (inputProps?: Partial<PostProps>) => {
 		},
 		author: {
 			name: "Sr. Mock",
+			slug: "sr-mock",
 			avatarUrl: "/mock-avatar.jpg"
 		},
 		categories: [

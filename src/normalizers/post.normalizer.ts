@@ -23,6 +23,7 @@ export class PostNormalizer implements IPostNormalizer {
 			
 			const authorData: AuthorProps = {
 				name: author?.node.name as string,
+				slug: author?.node.slug as string,
 				avatarUrl: author?.node.avatar?.url as string
 			};
 			

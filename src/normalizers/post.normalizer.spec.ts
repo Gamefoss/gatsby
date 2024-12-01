@@ -18,6 +18,7 @@ describe('PostNormalizer', () => {
 		author: {
 			node: {
 				name: 'Author Name',
+				slug: 'author-name',
 				avatar: {
 					url: '/avatar.jpg'
 				}
@@ -45,6 +46,7 @@ describe('PostNormalizer', () => {
 		},
 		author: {
 			name: 'Author Name',
+			slug: 'author-name',
 			avatarUrl: '/avatar.jpg'
 		},
 		categories: [
