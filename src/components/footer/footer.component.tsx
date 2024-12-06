@@ -2,19 +2,23 @@ import React, {FunctionComponent} from "react";
 
 import {Menu, Socials} from "@components";
 
-import "./footer.component.css";
 import dihggLogo from "@images/dihgg.svg";
+
+import "./footer.component.css";
 
 const Footer: FunctionComponent = () => {
 	return (
-		<footer data-testid="footer-component">
+		<footer
+			data-testid="footer-component"
+			className="footer-component"
+		>
 			<div className="socials-container">
 				<div className="socials site-wrapper">
 					<p>Nos siga nas redes Sociais:</p>
 					<Socials />
 				</div>
 			</div>
-			<div className="footer-menu-container">
+			<div className="footer-component__menu">
 				<Menu
 					location={"footer-menu"}
 					classNames={"site-wrapper"}

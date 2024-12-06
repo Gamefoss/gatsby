@@ -11,6 +11,7 @@
     "coverage": "jest --coverage",
     "develop": "gatsby develop",
     "start": "gatsby develop",
+    "prebuild": "gatsby clean",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",

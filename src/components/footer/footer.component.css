@@ -1,4 +1,4 @@
-footer {
+.footer-component {
     @apply
     text-white
     ;
@@ -21,7 +21,7 @@ footer {
         ;
     }
 
-    .footer-menu-container {
+    .footer-component__menu {
         @apply
         py-12
         bg-zinc-600
