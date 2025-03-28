@@ -116,7 +116,7 @@ const MenuItem: FunctionComponent<MenuItemProps> = ({items, className}) => (
 						cssClasses={cssClasses as string[] || []}
 						label={label!}
 					/>
-					{(children.length > 0) && <MenuItem items={children} className={"menu-component--item__submenu"}/>}
+					{(children.length > 0) && <MenuItem items={children} className="menu-component--item__submenu"/>}
 				</li>
 			))
 		}
@@ -153,10 +153,10 @@ const Menu: FunctionComponent<MenuProps> = ({location, classNames}) => {
 	const menuTree = buildMenuTree(menu.menuItems?.nodes as Queries.WpMenuItem[]);
 	
 	return (
-		<nav className={clsx("menu-component", classNames)}>
+		<nav className={clsx('menu-component', classNames)}>
 			<MenuItem
 				items={menuTree}
-				className={"menu-component__list"}
+				className="menu-component__list"
 			/>
 		</nav>
 	);

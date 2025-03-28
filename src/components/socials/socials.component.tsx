@@ -26,7 +26,7 @@ const Socials: FunctionComponent<{
 						<SocialIcon
 							url={link}
 							bgColor={"none"}
-							className={"social-icon"}
+							className="social-icon"
 							style={{
 								width: size,
 								height: size
