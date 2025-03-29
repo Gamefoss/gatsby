@@ -59,7 +59,7 @@ export class PodcastCreator extends Creator {
 			const slug = slugify(item!.title, SLUGIFY_OPTIONS);
 			actions.createPage({
 				path: `/podcast/${slug}`,
-				component: path.resolve(`./src/templates/podcast.template.tsx`),
+				component: path.resolve(`./src/templates/podcast/podcast.template.tsx`),
 				context: {id, slug},
 			});
 		});
@@ -71,18 +71,26 @@ export class PodcastCreator extends Creator {
  */
 export class WordPressCreator extends Creator {
 	
+	/**
+	 * Create pages from GraphQL edges from WordPress content
+	 * @param edges
+	 * @param prePath
+	 * @param template
+	 * @private
+	 */
 	private createFromEdge<T extends { node: { id: string, slug: Queries.Maybe<string> } }>(
 		{
 			edges,
 			prePath,
 			template
 		}: {
-			edges?: ReadonlyArray<T>
-			prePath: string,
-			template: string
+			edges?: ReadonlyArray<T>;
+			prePath: string;
+			template: string;
 		}
 	) {
 		const {actions} = this;
+		console.log('Creating pages for', template);
 		edges?.forEach(({node}) => {
 			const {id, slug} = node;
 			actions.createPage({
@@ -143,31 +151,31 @@ export class WordPressCreator extends Creator {
 		this.createFromEdge<Queries.WpPostEdge>({
 			edges: data?.allWpPost.edges,
 			prePath: 'artigo',
-			template: 'article.template.tsx'
+			template: 'article/article.template.tsx'
 		});
 		
 		this.createFromEdge<Queries.WpPageEdge>({
 			edges: data?.allWpPage.edges,
 			prePath: 'pagina',
-			template: 'page.template.tsx'
+			template: 'page/page.template.tsx'
 		});
 		
 		this.createFromEdge<Queries.WpCategoryEdge>({
 			edges: data?.allWpCategory.edges,
 			prePath: 'categoria',
-			template: 'category.template.tsx'
+			template: 'category/category.template.tsx'
 		});
 		
 		this.createFromEdge<Queries.WpTagEdge>({
 			edges: data?.allWpTag.edges,
 			prePath: 'tag',
-			template: 'tag.template.tsx'
+			template: 'tag/tag.template.tsx'
 		});
 		
 		this.createFromEdge<Queries.WpUserEdge>({
 			edges: data?.allWpUser.edges,
 			prePath: 'autor',
-			template: 'author.template.tsx'
+			template: 'author/author.template.tsx'
 		});
 	}
 }

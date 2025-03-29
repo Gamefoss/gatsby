@@ -10,7 +10,6 @@
 main {
     @apply
     pt-10
-    px-3
     md:pt-14
     w-full
     mx-auto
