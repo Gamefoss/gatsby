@@ -63,7 +63,7 @@ export const Post: FunctionComponent<PostProps> = (props) => {
 					<div className="post-component__content">
 						<h2>{title}</h2>
 						<div
-							className={"post-component__excerpt"}
+							className="post-component__excerpt"
 							dangerouslySetInnerHTML={{__html: excerpt}}
 						/>
 						<Author {...author} />

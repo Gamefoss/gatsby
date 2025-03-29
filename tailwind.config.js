@@ -6,6 +6,8 @@ module.exports = {
     `./src/templates/**/*.{js,jsx,ts,tsx}`,
     `./src/layouts/**/*.{js,jsx,ts,tsx}`,
   ],
+  safelist: [
+  ],
   theme: {
     extend: {
       colors: {

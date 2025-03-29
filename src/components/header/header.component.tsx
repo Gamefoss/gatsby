@@ -76,7 +76,7 @@ const Header: FunctionComponent<HeaderProps> = ({menu = []}) => {
 					/>
 					<Socials/>
 				</div>
-				<div className={"header-menu--right"}>
+				<div className="header-menu--right">
 					<SearchHeader />
 					<Socials size={30}/>
 				</div>

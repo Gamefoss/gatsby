@@ -16,10 +16,17 @@ const Button: FunctionComponent<ButtonProps> = (props) => {
 		className,
 		variant = "primary"
 	} = props;
+	
+	// const variantClass = variant === "primary" ? "btn--primary" : "btn--secondary";
+	const variantClass = {
+		primary: "btn--primary",
+		secondary: "btn--secondary"
+	}[variant] || variant;
+	
 	return (
 		<button
 			onClick={onClick}
-			className={clsx(`btn`, `btn--${variant}`, className)}
+			className={clsx(`btn`, variantClass, className)}
 		>
 			{children}
 		</button>
