@@ -1,13 +1,14 @@
 import { PostNormalizer } from './post.normalizer';
 
 describe('PostNormalizer', () => {
-	const normalizer = new PostNormalizer();
 	
 	const basePost = {
 		id: '1',
 		title: 'Post Title',
 		slug: 'post-title',
 		excerpt: 'Post Excerpt',
+		content: '<p>Post Content</p>',
+		date: '2023-10-01T00:00:00Z',
 		featuredImage: {
 			node: {
 				sourceUrl: '/image.jpg',
@@ -39,6 +40,8 @@ describe('PostNormalizer', () => {
 		title: 'Post Title',
 		slug: 'post-title',
 		excerpt: 'Post Excerpt',
+		content: '<p>Post Content</p>',
+		date: new Date('2023-10-01T00:00:00Z'),
 		type: 'Post',
 		featuredImage: {
 			sourceUrl: '/image.jpg',
@@ -60,7 +63,7 @@ describe('PostNormalizer', () => {
 	it('normalizes posts correctly', () => {
 		const posts = [basePost];
 		
-		const [result] = normalizer.normalize(posts);
+		const [result] = PostNormalizer.normalizeList(posts);
 		expect(result).toEqual(baseExpectedPost);
 	});
 	
@@ -77,7 +80,7 @@ describe('PostNormalizer', () => {
 			featuredImage: undefined
 		};
 		
-		const [result] = normalizer.normalize(posts);
+		const [result] = PostNormalizer.normalizeList(posts);
 		expect(result).toEqual(expectedPost);
 	});
 	
@@ -94,7 +97,12 @@ describe('PostNormalizer', () => {
 			categories: undefined
 		};
 		
-		const [result] = normalizer.normalize(posts);
+		const [result] = PostNormalizer.normalizeList(posts);
 		expect(result).toEqual(expectedPost);
+	});
+	
+	it('handles empty post list', () => {
+		const result = PostNormalizer.normalizeList([]);
+		expect(result).toEqual([]);
 	});
 });

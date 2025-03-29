@@ -21,7 +21,7 @@ const Button: FunctionComponent<ButtonProps> = (props) => {
 	const variantClass = {
 		primary: "btn--primary",
 		secondary: "btn--secondary"
-	}[variant] || variant;
+	}[variant] || `btn--${variant}`;
 	
 	return (
 		<button

@@ -6,8 +6,6 @@ import type {PodcastRssFeedEpisode, PodcastRssFeedEpisodeData} from "gatsby-sour
 
 import {BaseLayout} from "@layouts";
 
-import "@styles/pages/index.css"
-
 const IndexPage: FunctionComponent<PageProps<PodcastRssFeedEpisodeData>> = ({data}) => {
   return (
     <BaseLayout>

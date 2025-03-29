@@ -7,7 +7,7 @@ import {PostNormalizer} from "@normalizers";
 const CategoryTemplate: FunctionComponent<PageProps<{ wpCategory: Queries.WpCategory }>> = ({data}) => {
 	const {name, posts} = data.wpCategory;
 	
-	const normalizedPosts = new PostNormalizer().normalize(posts?.nodes as Queries.WpPost[]);
+	const normalizedPosts = PostNormalizer.normalizeList(posts?.nodes as Queries.WpPost[]);
 	
 	return (
 		<BaseLayout>

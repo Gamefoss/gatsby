@@ -42,6 +42,7 @@ const Header: FunctionComponent<HeaderProps> = ({menu = []}) => {
 	
 	return (
 		<header
+			id="header"
 			data-testid="header-component"
 			className={clsx({
 				'menu__open': menuOpen,

@@ -1,15 +1,31 @@
 import { BaseLayout } from "@layouts";
 import { graphql, HeadFC, PageProps } from "gatsby";
 import React, { FunctionComponent } from "react";
+import {PostNormalizer} from "@normalizers";
+import {Author} from "@components";
+import {formatDate} from "date-fns";
 
 const ArticleTemplate: FunctionComponent<PageProps<{wpPost: Queries.WpPost}>> = ({data}) => {
-	console.log('data', data);
-	const {title} = data.wpPost;
+	const normalizedPost = PostNormalizer.normalize(data.wpPost);
+	const {
+		title,
+		author,
+		excerpt,
+		content,
+		date,
+	} = normalizedPost;
 	
 	return (
 		<BaseLayout>
-			<h1>The title should be: {title}</h1>
-			<pre>{JSON.stringify(data, null, 2)}</pre>
+			<article>
+				<header>
+					<h1>{title}</h1>
+					<p>{excerpt}</p>
+					<Author {...author} />
+					<time dateTime={formatDate(date!, "yyyy-mm-dd")}>{formatDate(date!, "dd/mm/yyyy")}</time>
+				</header>
+				<section dangerouslySetInnerHTML={{__html: content!}} />
+			</article>
 		</BaseLayout>
 	);
 }
@@ -24,16 +40,13 @@ export const Head: HeadFC<{wpPost: Queries.WpPost}> = ({data}) => {
 export const query = graphql`
 	query($id: String!) {
 		wpPost(id: {eq: $id}) {
-			
 			title
 			date
 			excerpt
 			content
-			
 			author {
 				node {
-					firstName
-					lastName
+					name
 					username
 					url
 					avatar {

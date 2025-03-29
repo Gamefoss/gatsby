@@ -6,32 +6,28 @@ import CategoryTemplate from "./category.template";
 import {mock} from "jest-mock-extended";
 import {Head} from "./category.template";
 import {HeadProps} from "gatsby";
+import {PostNormalizer} from "@normalizers";
+import * as Components from "@components";
 
 
-jest.mock("@normalizers", () => ({
-	PostNormalizer: jest.fn().mockImplementation(() => ({
-		normalize: (posts: Queries.WpPost[]) => posts
-	}))
-}));
+jest.spyOn(PostNormalizer, 'normalizeList').mockImplementation(((posts?: Queries.WpPost[]) => posts as unknown as PostProps[]));
 
-jest.mock("@components", () => ({
-	Listing: (props: { posts: PostProps[] }) => (
-		<ul>
-			{props.posts.map((post: any) => (
-				<li key={post.id}>
-					<span>{post.title}</span>
-					{post.featuredImage && (
-						<img
-							data-testid="mocked-image"
-							src={post.featuredImage?.sourceUrl}
-							alt={post.featuredImage?.altText}
-						/>
-					)}
-				</li>
-			))}
-		</ul>
-	)
-}));
+jest.spyOn(Components, "Listing").mockImplementation((props: {posts: PostProps[]}) => (
+	<ul>
+		{props.posts.map((post: any) => (
+			<li key={post.id}>
+				<span>{post.title}</span>
+				{post.featuredImage && (
+					<img
+						data-testid="mocked-image"
+						src={post.featuredImage?.sourceUrl}
+						alt={post.featuredImage?.altText}
+					/>
+				)}
+			</li>
+		))}
+	</ul>
+));
 
 const renderTestComponent = (inputProps?: Partial<{
 	name: string,

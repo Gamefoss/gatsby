@@ -1,4 +1,4 @@
-header {
+#header {
     @apply
     bg-cyan-600
     text-white
@@ -125,6 +125,7 @@ header {
             @apply
             block
             mx-auto
+            w-40
             ;
         }
     }

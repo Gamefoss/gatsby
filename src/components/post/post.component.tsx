@@ -45,20 +45,11 @@ export const Post: FunctionComponent<PostProps> = (props) => {
 					<div className="post-component__badge-container">
 						{
 							categories && categories.slice(0,4).map(({name, slug}) => (
-								<button
-									key={slug}
-									onClick={(e) => {
-										e.preventDefault();
-										// TODO: Remove this once the navigate typings are fixed on gatsby link - https://github.com/gatsbyjs/gatsby/issues/39158
-										// @ts-ignore
-										navigate(`/categoria/${slug}`)
-									}}
-								>
+								<Link key={slug} to={`/categoria/${slug}`}>
 									<Badge name={name} type={type} />
-								</button>
+								</Link>
 							))
 						}
-						
 					</div>
 					<div className="post-component__content">
 						<h2>{title}</h2>

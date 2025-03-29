@@ -19,6 +19,8 @@ type PostProps = {
 	slug: string,
 	title: string,
 	excerpt: string,
+	content?: string,
+	date?: Date,
 	type: PostType,
 	author: AuthorProps,
 	categories?: CategoryProps[],
