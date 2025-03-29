@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Link, navigate} from "gatsby";
+import {Link} from "gatsby";
 import {Author, Badge} from "@components";
 
 import "./post.component.css";

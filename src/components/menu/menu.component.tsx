@@ -139,6 +139,7 @@ const Menu: FunctionComponent<MenuProps> = ({location, classNames}) => {
               title
               path
               parentId
+              cssClasses
             }
           }
         }
