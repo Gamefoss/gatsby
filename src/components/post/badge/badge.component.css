@@ -7,6 +7,10 @@
     text-xs
     px-2
     py-1
+    max-w-[200px]
+    overflow-hidden
+    text-ellipsis
+    whitespace-nowrap
     ;
     &.badge-component__post,
     &.badge-component__category,

@@ -9,13 +9,12 @@
         @apply
         absolute
         -top-4
-        left-4
+        gap-2
+        overflow-hidden
+        w-full
+        px-4
+        flex
         ;
-        a, button {
-            @apply
-            mr-2
-            ;
-        }
     }
     .post-component__image {
         @apply
