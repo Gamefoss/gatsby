@@ -32,4 +32,4 @@ export const SLUGIFY_OPTIONS = {
 };
 
 // TODO: Change it to 12
-export const POSTS_PER_PAGE = 1;
+export const POSTS_PER_PAGE = 12;

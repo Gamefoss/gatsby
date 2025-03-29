@@ -1,6 +1,8 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, ReactNode} from "react";
 import {Link} from "gatsby";
 import {Author, Badge} from "@components";
+import {clsx} from "clsx";
+import sanitizeHtml from "sanitize-html";
 
 import "./post.component.css";
 
@@ -34,12 +36,39 @@ export const Post: FunctionComponent<PostProps> = (props) => {
 		author,
 		categories
 	} = props;
+	
+	const sanitizedExcerpt = sanitizeHtml(excerpt, {
+		allowedTags: ['b', 'i', 'em', 'strong'],
+		/* allowedAttributes: {
+			'a': ['href', 'title'],
+		} */
+	});
+	
+	const variant: Record<PostType, string> | string = {
+		Post: "post-component--post",
+		Page: "post-component--page",
+		Podcast: "post-component--podcast",
+		Category: "post-component--category",
+		Tag: "post-component--tag",
+	}[type] || "post-component--post";
+
+	const path = {
+		Page: "pagina",
+		Podcast: "podcast",
+		Category: "categoria",
+		Tag: "tag",
+	}[type] || "artigo";
+	
 	return (
-		<article
-			data-testid="post-component"
-			className="post-component"
-		>
-			<Link to={`/artigo/${slug}`}>
+		<Link to={`/${path}/${slug}`}>
+			<article
+				data-testid="post-component"
+				className={clsx(
+					"post-component",
+					"post-component--flex",
+					variant
+				)}
+			>
 				<Image featuredImage={featuredImage} />
 				<div className="post-component__content-wrapper">
 					<div className="post-component__badge-container">
@@ -55,12 +84,12 @@ export const Post: FunctionComponent<PostProps> = (props) => {
 						<h2>{title}</h2>
 						<div
 							className="post-component__excerpt"
-							dangerouslySetInnerHTML={{__html: excerpt}}
+							dangerouslySetInnerHTML={{__html: sanitizedExcerpt}}
 						/>
-						<Author {...author} />
+						{author && <Author {...author} />}
 					</div>
 				</div>
-			</Link>
-		</article>
+			</article>
+		</Link>
 	);
 }

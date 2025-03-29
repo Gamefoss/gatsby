@@ -21,4 +21,9 @@ declare module "react-use-flexsearch" {
 	export function useFlexSearch<T>(query: string, index: any, store: any): T[];
 }
 
-type PostType = 'Podcast' | 'Post' | 'Page' | 'Category' | 'Tag' | undefined;
+/**
+ * Declare sanitize-html module as this module does not have types
+ */
+declare module 'sanitize-html';
+
+

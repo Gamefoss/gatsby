@@ -1,3 +1,5 @@
+type PostType = 'Podcast' | 'Post' | 'Page' | 'Category' | 'Tag' | string;
+
 type ImageProps = {
 	sourceUrl: string,
 	altText: string
@@ -22,7 +24,7 @@ type PostProps = {
 	content?: string,
 	date?: Date,
 	type: PostType,
-	author: AuthorProps,
+	author?: AuthorProps,
 	categories?: CategoryProps[],
 	featuredImage?: ImageProps
 };

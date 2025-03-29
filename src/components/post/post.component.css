@@ -5,7 +5,7 @@
     delay-200
     hover:scale-105
     ;
-    .post-component__badge-container {
+    &__badge-container {
         @apply
         absolute
         -top-4
@@ -16,7 +16,7 @@
         flex
         ;
     }
-    .post-component__image {
+    &__image {
         @apply
         w-full
         h-64
@@ -31,15 +31,15 @@
             ;
         }
     }
-    .post-component__content-wrapper {
+    &__content-wrapper {
         @apply
         relative
         bg-white
-        h-48
+        /* h-48 */
         ;
 
     }
-    .post-component__content {
+    &__content {
         @apply
         bg-white
         px-4
@@ -54,12 +54,16 @@
             @apply
             text-2xl
             font-bold
+            overflow-hidden
+            text-ellipsis
             ;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
         }
 
     }
-
-    .post-component__excerpt {
+    &__excerpt {
         @apply
         overflow-hidden
         text-ellipsis
@@ -68,5 +72,18 @@
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
+    }
+
+    &--flex {
+        @apply flex;
+        .post-component {
+            &__image {
+                @apply w-1/4;
+            }
+            &__content-wrapper {
+                @apply w-3/4;
+            }
+        }
+
     }
 }
