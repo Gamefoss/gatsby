@@ -11,6 +11,10 @@
     overflow-hidden
     text-ellipsis
     whitespace-nowrap
+    transition-transform
+    ease-in-out
+    delay-200
+    hover:scale-105
     ;
     &.badge-component__post,
     &.badge-component__category,

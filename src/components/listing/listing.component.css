@@ -54,8 +54,9 @@
         h-full
         top-0
         left-0
-        blur
+        blur-md
         opacity-50
+        bg-fixed
         ;
     }
 
@@ -72,5 +73,6 @@
         font-bold
         text-center
         ;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 }
